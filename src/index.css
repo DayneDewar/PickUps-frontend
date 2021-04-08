@@ -18,6 +18,16 @@ code {
   position: relative;
 }
 
+#nav-bar {
+  float: left;
+}
+
+#nav-bar .navlinks {
+  display: block;
+  padding: 8px;
+  background-color: #dddddd;
+}
+
 .sport-container {
   display: flex;
   justify-content: space-evenly;

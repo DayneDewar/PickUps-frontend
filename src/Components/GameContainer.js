@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Game from "./Game";
 import NewGameForm from "./NewGameForm";
 
-function GameContainer({ user }) {
+function GameContainer({ user, sports }) {
     const [allGames, setAllGames] = useState([]);
     const [myGames, setMyGames] = useState([]);
     const [filter, setFilter] = useState(false);
@@ -20,7 +20,7 @@ function GameContainer({ user }) {
 
         const newUserEvent = {
             //change user to dynamic
-            user_id: 1,
+            user_id: user.id,
             event_id: data.id
         }
 
@@ -34,12 +34,7 @@ function GameContainer({ user }) {
         .then(r => r.json())
         .then(data => console.log(data))
     }
-    // useEffect(() => {
-    //     fetch(`http://localhost:3000/users/${user.id}`)
-    //     .then(r => r.json())
-    //     .then(user => setMyGames(user.events))
-    // }, [])
-
+    
     const everyGame = allGames.map(game => {
         return (
           <Game 
@@ -74,9 +69,9 @@ function GameContainer({ user }) {
 
     return (
       <div className="game-container">
+        <NewGameForm sendNewGame={sendNewGame} sports={sports}/>
           {/* <input type="checkbox" onChange={setFilter(!filter)} /> */}
-          {filter ? justMyGames : everyGame }
-          <NewGameForm sendNewGame={sendNewGame}/>
+        {filter ? justMyGames : everyGame}
       </div>
     );
 }

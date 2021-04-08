@@ -1,6 +1,6 @@
 import { Icon } from "semantic-ui-react";
 
-function Marker() {
+function Marker({ lat, lng }) {
     
     return (
       <div className="marker">

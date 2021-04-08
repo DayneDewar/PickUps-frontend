@@ -5,11 +5,20 @@ import AllSports from './Components/AllSports';
 import GameContainer from './Components/GameContainer';
 import Header from './Components/Header';
 import NavBar from './Components/NavBar';
+import NewGameForm from './Components/NewGameForm';
+import NewSportForm from './Components/NewSportForm';
 import Profile from './Components/Profile';
 
 function App() {
 
   const [currentUser, setCurrentUser] = useState({});
+  const [sports, setSports] = useState([]);
+    
+  useEffect(() => {
+      fetch('http://localhost:3000/sports')
+      .then(r => r.json())
+      .then(data => setSports(data))
+  }, [])
 
   useEffect(()=>{
     //NOT dynamic
@@ -24,16 +33,16 @@ function App() {
       <NavBar />
       <Switch>
         <Route exact path="/">
-          <AllSports />
+          <AllSports sports={sports} />
         </Route>
         <Route exact path="/MyProfile">
-          <Profile user={currentUser}/>
+          <Profile user={currentUser} />
         </Route>
-        <Route exact path="/NewEvent">
-          
+        <Route exact path="/NewSport">
+          <NewSportForm user={currentUser} />
         </Route>
         <Route exact path="/Games">
-          <GameContainer />
+          <GameContainer user={currentUser} sports={sports} />
         </Route>
       </Switch>
       
