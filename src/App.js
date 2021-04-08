@@ -6,8 +6,8 @@ import NavBar from './Components/NavBar';
 function App() {
   return (
     <div>
-      <NavBar />
       <Header />
+      <NavBar />
       <AllSports />
     </div>
   );

@@ -11,3 +11,22 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.sport-container {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.sport-card {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  border-radius: 5px;
+  width: 265px;
+  height: 400px;
+}
+
+.sport-card img {
+  border-radius: 5px 5px 0 0;
+  width: 265px;
+  height: 200px;
+}
