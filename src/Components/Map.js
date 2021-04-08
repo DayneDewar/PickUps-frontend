@@ -1,12 +1,19 @@
-import googleMapReact = require("google-map-react");
+import GoogleMapReact from "google-map-react";
+import Marker from "./Marker";
 
-function Map() {
-    
+function Map({ lati, long }) {
+
+    console.log(process.env.REACT_APP_KEY)
     return (
       <div className="map">
-          <googleMapReact >
-              
-          </googleMapReact>
+          <GoogleMapReact bootstrapURLKeys={{key: 
+            process.env.REACT_APP_KEY
+        }}
+            defaultCenter={{ lat: lati, lng: long}}
+            defaultZoom={ 14 }
+          >
+              <Marker />
+          </GoogleMapReact>
       </div>
     );
 }

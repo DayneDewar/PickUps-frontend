@@ -6,7 +6,7 @@ function NavBar() {
           <NavLink to='/'>Home</NavLink>
           <NavLink to='/MyProfile'>Profile</NavLink>
           <NavLink to='/NewEvent'>Host a PickUp Game</NavLink>
-          <NavLink to='/MyGames'>PickUp Games</NavLink>
+          <NavLink to='/Games'>PickUp Games</NavLink>
       </div>
     );
 }

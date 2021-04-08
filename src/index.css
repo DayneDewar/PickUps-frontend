@@ -12,6 +12,12 @@ code {
     monospace;
 }
 
+.map {
+  width: 40vw;
+  height: 40vw;
+  position: relative;
+}
+
 .sport-container {
   display: flex;
   justify-content: space-evenly;
