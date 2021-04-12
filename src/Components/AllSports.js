@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react";
 import Sport from "./Sport";
 
-function AllSports({ sports }) {
+function AllSports({ sports, user }) {
     
     const sportArray = sports.map(sport => {
         return (
@@ -12,6 +11,7 @@ function AllSports({ sports }) {
                 image={sport.image}
                 rules= {sport.rules}
                 id={sport.id}
+                user={user}
             />
         )
     })

@@ -5,14 +5,16 @@ import AllSports from './Components/AllSports';
 import GameContainer from './Components/GameContainer';
 import Header from './Components/Header';
 import NavBar from './Components/NavBar';
-import NewGameForm from './Components/NewGameForm';
 import NewSportForm from './Components/NewSportForm';
 import Profile from './Components/Profile';
+import Signup from './Components/Signup';
+import Login from './Components/Login';
 
 function App() {
 
   const [currentUser, setCurrentUser] = useState({});
   const [sports, setSports] = useState([]);
+  const [signedIn, setSignedIn] = useState(false)
     
   useEffect(() => {
       fetch('http://localhost:3000/sports')
@@ -20,29 +22,42 @@ function App() {
       .then(data => setSports(data))
   }, [])
 
-  useEffect(()=>{
-    //NOT dynamic
-    fetch('http://localhost:3000/users/1')
-    .then(r => r.json())
-    .then(data => setCurrentUser(data))
-  }, [])
+  console.log(currentUser)
+
+  // useEffect(()=>{
+  //   //NOT dynamic
+  //   fetch('http://localhost:3000/users/1')
+  //   .then(r => r.json())
+  //   .then(data => setCurrentUser(data))
+  // }, [])
+
+  function changeLogin(userInfo) {
+    setSignedIn(!signedIn)
+    setCurrentUser(userInfo)
+  }
 
   return (
     <div>
       <Header />
-      <NavBar />
+      <NavBar signedIn={signedIn} changeLogin={changeLogin}/>
       <Switch>
         <Route exact path="/">
-          <AllSports sports={sports} />
+          <AllSports sports={sports} user={currentUser} />
         </Route>
         <Route exact path="/MyProfile">
-          <Profile user={currentUser} />
+          <Profile user={currentUser} setCurrentUser={setCurrentUser} />
         </Route>
         <Route exact path="/NewSport">
           <NewSportForm user={currentUser} />
         </Route>
         <Route exact path="/Games">
           <GameContainer user={currentUser} sports={sports} />
+        </Route>
+        <Route exact path="/Login">
+          <Login changeLogin={changeLogin}/>
+        </Route>
+        <Route exact path="/Signup">
+          <Signup changeLogin={changeLogin} />
         </Route>
       </Switch>
       

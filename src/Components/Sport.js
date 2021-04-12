@@ -1,12 +1,12 @@
 
-function Sport({ name, equipment, image="../default_sport.jpg", rules, id }) {
+function Sport({ name, equipment, image="../default_sport.jpg", rules, id, user}) {
     
   function addSport(e) {
     e.preventDefault();
 
     const newFavorite = {
       //using user id of 1 for now until incorporating redux
-      user_id: 1,
+      user_id: user.id,
       sport_id: id
     }
 

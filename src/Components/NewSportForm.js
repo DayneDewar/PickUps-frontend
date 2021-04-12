@@ -6,6 +6,7 @@ function NewSportForm({ user }) {
     const [image, setImage] = useState("");
     const [rules, setRules] = useState("");
 
+    console.log(user)
     function handleNameChange(e) {
         setName(e.target.value)
     }

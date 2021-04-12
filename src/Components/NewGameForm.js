@@ -38,13 +38,14 @@ function NewGameForm({ sendNewGame, sports }) {
             body: JSON.stringify(newGame)
         })
         .then(r => r.json())
-        .then(data => console.log(data))
+        .then(data => sendNewGame(data))
     }
 
     return (
       <div >
         <form onSubmit={handleSubmit} className="game-form">
             <select type="text" name="sports" onChange={handleSportChange}>
+                <option value="0">Select A Sport</option>
                 {allSportsName}
             </select>
             <input  type="text" name="location" onChange={handleLocationChange} value={location} placeholder="location" />
