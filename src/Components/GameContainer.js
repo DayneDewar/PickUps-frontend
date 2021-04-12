@@ -12,9 +12,13 @@ function GameContainer({ user, sports }) {
         .then(r => r.json())
         .then(data => {
           setAllGames(data)
-          setMyGames(user.events)
+          // setMyGames(user.events)
         })
     },[])
+
+    function handleUpdateGame(data) {
+
+    }
 
     function sendNewGame(data) {
         const newGameAdded = [...allGames, data]
@@ -68,7 +72,7 @@ function GameContainer({ user, sports }) {
             key={game.id}
             location={game.location}
             equipment={game.equipment}
-            sport={game.sports}
+            sport={game.sport}
             date={game.date}
             time={game.time}
             lat={game.lat}

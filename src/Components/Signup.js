@@ -30,7 +30,7 @@ function Signup({ changeLogin }) {
             lastname,
             age,
             location,
-            rating: 0
+            rating: 5
         }
 
         fetch('http://localhost:3000/users', {

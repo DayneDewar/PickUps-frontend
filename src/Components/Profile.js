@@ -25,6 +25,7 @@ function Profile({ user }) {
           <ul>
             {userSports}
           </ul>
+          <h4> Rating: {user.rating}</h4>
       </div>
     );
 }

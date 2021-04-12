@@ -1,5 +1,5 @@
 import { useState } from "react";
-function UpdateGameForm({id }) {
+function UpdateGameForm({ id, updateData }) {
     
     const [newLocation, setNewLocation] = useState("")
     const [newDate, setNewDate] = useState("")
@@ -24,7 +24,7 @@ function UpdateGameForm({id }) {
           body: JSON.stringify(newDetails)
         })
         .then(r => r.json())
-        .then(data => console.log(data))
+        .then(data => updateData(data))
     }
 
 
