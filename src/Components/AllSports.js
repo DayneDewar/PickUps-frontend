@@ -1,6 +1,6 @@
 import Sport from "./Sport";
 
-function AllSports({ sports, user }) {
+function AllSports({ sports, user, updateAccount }) {
     
     const sportArray = sports.map(sport => {
         return (
@@ -12,6 +12,7 @@ function AllSports({ sports, user }) {
                 rules= {sport.rules}
                 id={sport.id}
                 user={user}
+                updateAccount={updateAccount}
             />
         )
     })

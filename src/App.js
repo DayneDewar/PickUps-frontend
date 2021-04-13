@@ -14,7 +14,7 @@ function App() {
 
   const [currentUser, setCurrentUser] = useState({});
   const [sports, setSports] = useState([]);
-  const [signedIn, setSignedIn] = useState(false)
+  const [signedIn, setSignedIn] = useState(false);
     
   useEffect(() => {
       fetch('http://localhost:3000/sports')
@@ -22,33 +22,40 @@ function App() {
       .then(data => setSports(data))
   }, [])
 
-  console.log(currentUser)
+  function addNewSport(sport) {
+    const updatedSports = [...sports, sport]
+    setSports(updatedSports)
+  }
 
-  // useEffect(()=>{
-  //   //NOT dynamic
-  //   fetch('http://localhost:3000/users/1')
-  //   .then(r => r.json())
-  //   .then(data => setCurrentUser(data))
-  // }, [])
+  useEffect(()=>{
+    //NOT dynamic
+    fetch('http://localhost:3000/users/1')
+    .then(r => r.json())
+    .then(data => setCurrentUser(data))
+  }, [])
 
   function changeLogin(userInfo) {
     setSignedIn(!signedIn)
     setCurrentUser(userInfo)
   }
 
+  function updateAccount(data) {
+    
+  }
+
   return (
     <div>
       <Header />
-      <NavBar signedIn={signedIn} changeLogin={changeLogin}/>
+      <NavBar signedIn={signedIn} />
       <Switch>
         <Route exact path="/">
-          <AllSports sports={sports} user={currentUser} />
+          <AllSports sports={sports} user={currentUser} updateAccount={updateAccount}/>
         </Route>
         <Route exact path="/MyProfile">
           <Profile user={currentUser} setCurrentUser={setCurrentUser} />
         </Route>
         <Route exact path="/NewSport">
-          <NewSportForm user={currentUser} />
+          <NewSportForm user={currentUser} addNewSport={addNewSport} />
         </Route>
         <Route exact path="/Games">
           <GameContainer user={currentUser} sports={sports} />
@@ -60,7 +67,6 @@ function App() {
           <Signup changeLogin={changeLogin} />
         </Route>
       </Switch>
-      
     </div>
   );
 }

@@ -16,8 +16,9 @@ function GameContainer({ user, sports }) {
         })
     },[])
 
-    function handleUpdateGame(data) {
-
+    function removeFromGames(id) {
+      const updatedGames = allGames.filter(game => game.id !== id)
+      setAllGames(updatedGames)
     }
 
     function sendNewGame(data) {
@@ -38,30 +39,23 @@ function GameContainer({ user, sports }) {
         })
         .then(r => r.json())
         .then(data => {
-          const newUserGame = [...myGames, data]
-          setMyGames(newUserGame)
+          // const newUserGame = [...myGames, data]
+          // setMyGames(newUserGame)
         })
     }
 
-    const filtered = allGames.filter(game => {
-      return game.users.id === user.id
-    })
+    // const filtered = allGames.filter(game => {
+    //   return game.users.id === user.id
+    // })
 
 
     const everyGame = allGames.map(game => {
         return (
           <Game 
             key={game.id}
-            id={game.id}
-            location={game.location}
-            equipment={game.equipment}
-            sport={game.sport}
-            date={game.date}
-            time={game.time}
-            lat={game.lat}
-            lng={game.lng}
-            users={game.users}
+            game={game}
             user={user}
+            removeFromGames={removeFromGames}
           />
         )
     })

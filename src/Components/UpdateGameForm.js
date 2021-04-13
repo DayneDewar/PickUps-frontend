@@ -12,7 +12,9 @@ function UpdateGameForm({ id, updateData }) {
     function updateGame(e) {
 
         const newDetails = {
-            location: newLocation
+            location: newLocation,
+            date: newDate,
+            time: newTime
         }
 
         e.preventDefault()
@@ -27,10 +29,12 @@ function UpdateGameForm({ id, updateData }) {
         .then(data => updateData(data))
     }
 
+    
 
     return (
       <div >
           <form onSubmit={updateGame} className="game-update-form">
+
             <input  type="text" name="location" onChange={handleLocationChange} value={newLocation} placeholder="location" />
             <button type="submit">Update Game</button>
         </form>

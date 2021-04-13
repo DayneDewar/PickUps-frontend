@@ -1,9 +1,14 @@
 import { useState } from "react";
+import DatePicker from 'react-date-picker';
+import TimePicker from 'react-time-picker';
 
 function NewGameForm({ sendNewGame, sports }) {
     const [location, setLocation] = useState("")
     const [equipment, setEquipment] = useState(false)
-    const [sportId, setSportId] = useState(1)
+    const [sportId, setSportId] = useState(0)
+    const [date, setDate] = useState(new Date())
+    const [time, setTime] = useState('10:00')
+
 
     const allSportsName = sports.map(sport => {
         return <option key={sport.id} value={sport.id}>{sport.name}</option>
@@ -27,7 +32,9 @@ function NewGameForm({ sendNewGame, sports }) {
         const newGame = {
             location: location, 
             equipment: equipment,
-            sport_id: sportId
+            sport_id: sportId,
+            date: date,
+            time: time
         }
 
         fetch('http://localhost:3000/events', {
@@ -51,6 +58,9 @@ function NewGameForm({ sendNewGame, sports }) {
             <input  type="text" name="location" onChange={handleLocationChange} value={location} placeholder="location" />
             <label htmlFor="equipment">Do You Have The Equipment</label>
             <input  type="checkbox" name="equipment" onChange={handleEquipmentChange} value={equipment}/>
+            <label htmlFor="date">Date</label>
+            <DatePicker value={date} onChange={setDate} />
+            <TimePicker value={time} onChange={setTime} />
             <button type="submit">Create New Game</button>
         </form>
       </div>

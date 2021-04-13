@@ -1,12 +1,11 @@
 import { useState } from "react";
 
-function NewSportForm({ user }) {
+function NewSportForm({ user, addNewSport }) {
     const [name, setName] = useState("");
     const [equipment, setEquipment] = useState("");
     const [image, setImage] = useState("");
     const [rules, setRules] = useState("");
 
-    console.log(user)
     function handleNameChange(e) {
         setName(e.target.value)
     }
@@ -42,7 +41,13 @@ function NewSportForm({ user }) {
             body: JSON.stringify(newSport)
         })
         .then(r => r.json())
-        .then(data => console.log(data))
+        .then(data => {
+            addNewSport(data)
+            setName("")
+            setEquipment("")
+            setImage("")
+            setRules("")
+        })
     }
     return (
       <div >

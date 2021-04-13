@@ -1,5 +1,5 @@
 
-function Sport({ name, equipment, image="../default_sport.jpg", rules, id, user}) {
+function Sport({ name, equipment, image="../default_sport.jpg", rules, id, user, updateAccount }) {
     
   function addSport(e) {
     e.preventDefault();
@@ -18,7 +18,7 @@ function Sport({ name, equipment, image="../default_sport.jpg", rules, id, user}
       body: JSON.stringify(newFavorite)
     })
     .then(r => r.json())
-    .then(newFavoriteSport => console.log(newFavoriteSport))
+    .then(newFavoriteSport => updateAccount(newFavoriteSport))
   }
 
     return (
