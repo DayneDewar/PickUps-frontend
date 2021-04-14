@@ -4,8 +4,8 @@ import Map from "./Map"
 
 function GameDetails({ game, user, removeFromGames }) {
     const [detailChange, setDetailChange] = useState(false)
-    const [newLati, setNewLati] = useState(game.lati)
-    const [newLong, setNewLong] = useState(game.long)
+    const [newLati, setNewLati] = useState(game.lat)
+    const [newLong, setNewLong] = useState(game.lng)
     const [signedUp, setSignedUp] = useState(false)
     const [playersArr, setPlayersArr] = useState(game.users)
 
@@ -82,7 +82,6 @@ function GameDetails({ game, user, removeFromGames }) {
         })
         .then(r => r.json())
         .then(data => {
-            console.log(data)
             setSignedUp(!signedUp)
         })
       }
@@ -107,8 +106,6 @@ function GameDetails({ game, user, removeFromGames }) {
 
       function handleDelete(e) {
           e.preventDefault();
-
-          handleCancel(e)
 
           fetch(`http://localhost:3000/events/${game.id}`, {
             method: "DELETE",

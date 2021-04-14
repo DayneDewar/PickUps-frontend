@@ -27,7 +27,7 @@ function Login({changeLogin }) {
             body: JSON.stringify(newLogin)
         })
         .then(r => r.json())
-        .then(data => changeLogin(data))
+        .then(data => console.log(data))
         }
 
     return (

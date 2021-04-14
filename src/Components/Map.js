@@ -9,7 +9,7 @@ function Map({ lati, long }) {
             process.env.REACT_APP_KEY
         }}
             defaultCenter={{ lat: lati, lng: long}}
-            defaultZoom={ 14 }
+            defaultZoom={ 12 }
           >
               <Marker lat={lati} lng={long}/>
           </GoogleMapReact>

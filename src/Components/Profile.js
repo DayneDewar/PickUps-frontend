@@ -55,6 +55,15 @@ function Profile({ user, setCurrentUser }) {
     .then(() => updateList(e.target.value))
   }
 
+  function handleDelete(e) {
+    e.preventDefault()
+
+    fetch(`http://localhost:3000/users/${user.id}`, {
+      method: "DELETE",
+     })
+    .then(r => r.json())
+    .then(() => setCurrentUser({}))
+  }
     return (
       <div>
           <h2>Hello, {user.firstname}</h2>
@@ -70,7 +79,7 @@ function Profile({ user, setCurrentUser }) {
             <textarea type="text" name="bio" onChange={handleBioChange} value={bio} placeholder="Lets Talk About you" />
             <button type="submit">Update Your Bio</button>
           </form>
-          {/* <button onClick={handleDelete}>Delete Account</button> */}
+          <button onClick={handleDelete}>Delete Account</button>
       </div>
     );
 }
