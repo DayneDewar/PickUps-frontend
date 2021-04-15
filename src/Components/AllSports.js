@@ -1,7 +1,8 @@
+import { useSelector } from "react-redux";
 import Sport from "./Sport";
 
-function AllSports({ sports, user, updateAccount }) {
-    
+function AllSports({ user }) {
+    const sports = useSelector(storeState => storeState.sports)
     const sportArray = sports.map(sport => {
         return (
             <Sport 
@@ -12,7 +13,6 @@ function AllSports({ sports, user, updateAccount }) {
                 rules= {sport.rules}
                 id={sport.id}
                 user={user}
-                updateAccount={updateAccount}
             />
         )
     })

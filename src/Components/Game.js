@@ -1,7 +1,7 @@
 import { useState } from "react";
 import GameDetails from "./GameDetails"
 
-function Game({ game, user, removeFromGames }) {
+function Game({ game, user }) {
 
   const [details, setDetails] = useState(false)
 
@@ -15,7 +15,7 @@ function Game({ game, user, removeFromGames }) {
         <p>Location: {game.location}</p>
         <p>Equipment Available: { game.equipment ? "✅" : "❌"}</p>
         <button onClick={showDetails}>Show PickUp Details</button>
-        { details ? <GameDetails game={game} user={user} removeFromGames={removeFromGames}/> : null }
+        { details ? <GameDetails game={game} user={user} /> : null }
       </div>
     );
 }

@@ -1,17 +1,20 @@
 import { useState } from "react";
+import { useHistory } from "react-router";
 
-function Signup({ changeLogin }) {
-    const [firstname, setFirstname] = useState("")
-    const [lastname, setLastname] = useState("")
-    const [age, setAge] = useState("")
-    const [location, setLocation] = useState("")
+function Signup({ setUser }) {
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [age, setAge] = useState("");
+    const [location, setLocation] = useState("");
+    const [errors, setErrors] = useState([]);
+    const history = useHistory();
 
-    function changeFirstname(e) {
-        setFirstname(e.target.value)
+    function changeUsername(e) {
+        setUsername(e.target.value)
     }
 
-    function changeLastname(e) {
-        setLastname(e.target.value)
+    function changePassword(e) {
+        setPassword(e.target.value)
     }
 
     function changeAge(e) {
@@ -26,38 +29,54 @@ function Signup({ changeLogin }) {
         e.preventDefault()
 
         const newAccount = {
-            firstname,
-            lastname,
+            username,
+            password,
             age,
             location,
             rating: 5
         }
 
-        fetch('http://localhost:3000/users', {
+        fetch('http://localhost:3000/signup', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(newAccount)
         })
-        .then(r => r.json())
+        .then(r => {
+            return r.json().then(data => {
+                if (r.ok) {
+                    return data
+                } else {
+                    throw data
+                }
+            })
+        })
         .then(data => {
-            changeLogin(data)
+            const { user, token } = data
+            localStorage.setItem("token", token)
+            setUser(user)
+            history.push("/MyProfile")
+        })
+        .catch(error => {
+            setErrors(error.errors)
         })
     }
 
     return (
-      <div >
+      <div id="signup-form">
           <form onSubmit={handleSubmit}>
-            <label htmlFor="firstname">First Name</label>
-            <input type="text" name="firstname" onChange={changeFirstname} value={firstname} placeholder="ex. John"/>
-            <label htmlFor="lastname">Last Name</label>
-            <input type="text" name="lastname" onChange={changeLastname} value={lastname} placeholder="ex. Smith"/>
-            <label htmlFor="age">Age</label>
-            <input type="number" onChange={changeAge} value={age} placeholder="age"/>
-            <label htmlFor="location">Current City</label>
+            <h1>Create Your Account</h1>
+            {errors.map(error => <p key={error} style={{ color: "red" }}>{error}</p>)}
+            <label>Username</label>
+            <input type="text" name="username" onChange={changeUsername} value={username} />
+            <label>Password</label>
+            <input type="password" name="password" onChange={changePassword} value={password} />
+            <label>Age</label>
+            <input type="number" onChange={changeAge} value={age} />
+            <label>Current City</label>
             <input type="text" onChange={changeLocation} value={location} placeholder="ex. Brooklyn, NY"/>
-            <button type="submit">Create Your Account</button>
+            <button type="submit">Sign Up</button>
           </form>
       </div>
     );

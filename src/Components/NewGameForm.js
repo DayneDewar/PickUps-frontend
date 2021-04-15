@@ -1,15 +1,15 @@
 import { useState } from "react";
 import DatePicker from 'react-date-picker';
+import { useSelector } from "react-redux";
 import TimePicker from 'react-time-picker';
 
-function NewGameForm({ sendNewGame, sports }) {
+function NewGameForm({ sendNewGame }) {
     const [location, setLocation] = useState("")
     const [equipment, setEquipment] = useState(false)
     const [sportId, setSportId] = useState(0)
     const [date, setDate] = useState(new Date())
     const [time, setTime] = useState('10:00')
-
-
+    const sports = useSelector(storeState => storeState.sports)
     const allSportsName = sports.map(sport => {
         return <option key={sport.id} value={sport.id}>{sport.name}</option>
     })
@@ -57,7 +57,7 @@ function NewGameForm({ sendNewGame, sports }) {
             </select>
             <input  type="text" name="location" onChange={handleLocationChange} value={location} placeholder="location" />
             <label htmlFor="equipment">Do You Have The Equipment</label>
-            <input  type="checkbox" name="equipment" onChange={handleEquipmentChange} value={equipment}/>
+            <input  type="checkbox" name="equipment" onChange={handleEquipmentChange} value={equipment} />
             <label htmlFor="date">Date</label>
             <DatePicker value={date} onChange={setDate} />
             <TimePicker value={time} onChange={setTime} />

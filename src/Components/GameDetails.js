@@ -1,13 +1,18 @@
 import UpdateGameForm from "./UpdateGameForm"
 import { useState } from "react"
 import Map from "./Map"
+import { useDispatch } from "react-redux"
+import { removeGame } from "../Redux/gamesSlice";
 
-function GameDetails({ game, user, removeFromGames }) {
-    const [detailChange, setDetailChange] = useState(false)
-    const [newLati, setNewLati] = useState(game.lat)
-    const [newLong, setNewLong] = useState(game.lng)
-    const [signedUp, setSignedUp] = useState(false)
-    const [playersArr, setPlayersArr] = useState(game.users)
+function GameDetails({ game, user }) {
+    const [detailChange, setDetailChange] = useState(false);
+    const [newLati, setNewLati] = useState(game.lat);
+    const [newLong, setNewLong] = useState(game.lng);
+    const [signedUp, setSignedUp] = useState(false);
+    const [playersArr, setPlayersArr] = useState(game.users);
+    const dispatch = useDispatch();
+
+    console.log(playersArr)
 
     const playersListing = playersArr.map((player) => {
         return (
@@ -85,7 +90,7 @@ function GameDetails({ game, user, removeFromGames }) {
             setSignedUp(!signedUp)
         })
       }
-
+// should update the players Arr
       function handleSignUp(e) {
         e.preventDefault()
 
@@ -114,7 +119,7 @@ function GameDetails({ game, user, removeFromGames }) {
             },
           })
           .then(r => r.json())
-          .then(() => removeFromGames(game.id))
+          .then(() => dispatch(removeGame(game)))
       }
 
     return (

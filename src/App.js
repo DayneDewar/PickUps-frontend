@@ -9,62 +9,71 @@ import NewSportForm from './Components/NewSportForm';
 import Profile from './Components/Profile';
 import Signup from './Components/Signup';
 import Login from './Components/Login';
+import { useDispatch } from 'react-redux';
+import { overrideSports } from './Redux/sportsSlice';
+import { overrideGames } from './Redux/gamesSlice';
+
 
 function App() {
 
-  const [currentUser, setCurrentUser] = useState({});
-  const [sports, setSports] = useState([]);
-  const [signedIn, setSignedIn] = useState(false);
-    
+  const dispatch = useDispatch();
+  const [user, setUser] = useState(null);
+
   useEffect(() => {
       fetch('http://localhost:3000/sports')
       .then(r => r.json())
-      .then(data => setSports(data))
+      .then(data => dispatch(overrideSports(data)))
   }, [])
 
-  function addNewSport(sport) {
-    const updatedSports = [...sports, sport]
-    setSports(updatedSports)
-  }
-
-  useEffect(()=>{
-    //NOT dynamic
-    fetch('http://localhost:3000/users/1')
-    .then(r => r.json())
-    .then(data => setCurrentUser(data))
+  useEffect(() => {
+    fetch('http://localhost:3000/events')
+      .then(r => r.json())
+      .then(data => dispatch(overrideGames(data)))
   }, [])
 
-  function changeLogin(userInfo) {
-    setSignedIn(!signedIn)
-    setCurrentUser(userInfo)
-  }
+  useEffect(() => {
+    const token = localStorage.getItem("token");
 
-  function updateAccount(data) {
-    
-  }
+    fetch('http://localhost:3000/me', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      }
+    })
+      .then(r => {
+        return r.json().then(data => {
+          if (r.ok) {
+            return data
+          } else {
+            throw data
+          }
+        })
+      })
+      .then(data => setUser(data))
+      .catch(error => console.log(error))
+  }, [])
 
   return (
     <div>
       <Header />
-      <NavBar signedIn={signedIn} />
+      <NavBar user={user} setUser={setUser} />
       <Switch>
         <Route exact path="/">
-          <AllSports sports={sports} user={currentUser} updateAccount={updateAccount}/>
+          <AllSports user={user} />
         </Route>
         <Route exact path="/MyProfile">
-          <Profile user={currentUser} setCurrentUser={setCurrentUser} />
+          <Profile user={user} setUser={setUser} />
         </Route>
         <Route exact path="/NewSport">
-          <NewSportForm user={currentUser} addNewSport={addNewSport} />
+          <NewSportForm user={user} />
         </Route>
         <Route exact path="/Games">
-          <GameContainer user={currentUser} sports={sports} />
+          <GameContainer user={user} />
         </Route>
         <Route exact path="/Login">
-          <Login changeLogin={changeLogin}/>
+          <Login setUser={setUser} />
         </Route>
         <Route exact path="/Signup">
-          <Signup changeLogin={changeLogin} />
+          <Signup setUser={setUser} />
         </Route>
       </Switch>
     </div>

@@ -1,29 +1,33 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addGame } from "../Redux/gamesSlice";
 import Game from "./Game";
 import NewGameForm from "./NewGameForm";
 
-function GameContainer({ user, sports }) {
-    const [allGames, setAllGames] = useState([]);
+function GameContainer({ user }) {
+    // const [allGames, setAllGames] = useState([]);
     const [myGames, setMyGames] = useState([]);
     const [filter, setFilter] = useState(false);
+    const allGames = useSelector(storeState => storeState.games)
+    const dispatch = useDispatch()
+    // useEffect(() => {
+    //     fetch('http://localhost:3000/events')
+    //     .then(r => r.json())
+    //     .then(data => {
+    //       setAllGames(data)
+    //       // setMyGames(user.events)
+    //     })
+    // },[])
 
-    useEffect(() => {
-        fetch('http://localhost:3000/events')
-        .then(r => r.json())
-        .then(data => {
-          setAllGames(data)
-          // setMyGames(user.events)
-        })
-    },[])
+    // function removeFromGames(id) {
+    //   const updatedGames = allGames.filter(game => game.id !== id)
+    //   setAllGames(updatedGames)
+    // }
 
-    function removeFromGames(id) {
-      const updatedGames = allGames.filter(game => game.id !== id)
-      setAllGames(updatedGames)
-    }
+    
 
     function sendNewGame(data) {
-        const newGameAdded = [...allGames, data]
-        setAllGames(newGameAdded)
+        dispatch(addGame(data))
 
         const newUserEvent = {
             user_id: user.id,
@@ -55,7 +59,6 @@ function GameContainer({ user, sports }) {
             key={game.id}
             game={game}
             user={user}
-            removeFromGames={removeFromGames}
           />
         )
     })
@@ -79,7 +82,7 @@ function GameContainer({ user, sports }) {
 
     return (
       <div className="game-container">
-        <NewGameForm sendNewGame={sendNewGame} sports={sports}/>
+        <NewGameForm sendNewGame={sendNewGame} />
         <button onClick={() => setFilter(!filter)}>{filter ? "Show All PickUp Games" : "Just My PickUp Games"}</button>
         {filter ? justMyGames : everyGame}
       </div>

@@ -1,42 +1,65 @@
-import {useState} from "react";
-function Login({changeLogin }) {
-    
-    const [firstname, setFirstname] = useState("")
-    const [lastname, setLastname] = useState("")
+import { useState } from "react";
+import { useHistory } from "react-router";
 
-    function changeFirstname(e) {
-        setFirstname(e.target.value)
+function Login({ setUser }) {
+    
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [errors, setErrors] = useState([]);
+    const history = useHistory();
+
+    function changeUsername(e) {
+        setUsername(e.target.value)
     }
 
-    function changeLastname(e) {
-        setLastname(e.target.value)
+    function changePassword(e) {
+        setPassword(e.target.value)
     }
 
     function handleSubmit(e) {
-        e.preventDefault()
+        e.preventDefault();
 
         const newLogin = {
-            firstname,
-            lastname
+            username,
+            password
         }
+
         fetch('http://localhost:3000/login', {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
             },
             body: JSON.stringify(newLogin)
         })
-        .then(r => r.json())
-        .then(data => console.log(data))
-        }
+        .then(r => {
+            return r.json().then(data => {
+                if (r.ok) {
+                    return data
+                } else {
+                    throw data
+                }
+            })
+        })
+        .then(data => {
+            const { user, token } = data
+            localStorage.setItem("token", token)
+            setUser(user)
+            history.push("/MyProfile")
+        })
+        .catch(error => {
+            setErrors(error.errors)
+        })
+    }
 
     return (
-      <div >
-          <form onSubmit={handleSubmit}> 
-            <label htmlFor="firstname">First Name</label>
-            <input type="text" name="firstname"onChange={changeFirstname} value={firstname} placeholder="ex. John"/>
-            <label htmlFor="lastname">Last Name</label>
-            <input type="text" name="lastname"onChange={changeLastname} value={lastname} placeholder="ex. Smith"/>
+      <div id="login-form">
+          <form onSubmit={handleSubmit}>
+            <h1>Login</h1> 
+            {errors.map(error => <p key={error} style={{ color: "red" }}>{error}</p>)}
+            <label>Username</label>
+            <input type="text" name="username" onChange={changeUsername} value={username} />
+            <label>Password</label>
+            <input type="password" name="password" onChange={changePassword} value={password} />
             <button type="submit">Login</button>
           </form>
       </div>

@@ -1,18 +1,17 @@
 import { useEffect, useState } from "react";
 
-function Profile({ user, setCurrentUser }) {
+function Profile({ user, setUser }) {
 
   const [favSportsArr, setFavSportsArr] = useState([]);
   const [bio, setBio] = useState("")
 
-  useEffect(() => {
-    fetch(`http://localhost:3000/users/1`)
-    .then(r => r.json())
-    .then(data => {
-      setFavSportsArr(data.favorite_sports)
-      setBio(data.bio)
-    })
-  }, [])
+  // useEffect(() => {
+  //   fetch('http://localhost:3000/me')
+  //   .then(r => r.json())
+  //   .then(data => {
+  //     setFavSportsArr(data.favorite_sports)
+  //   })
+  // }, [])
 
   const userSports = favSportsArr?.map(favSport => {
     return ( 
@@ -32,21 +31,26 @@ function Profile({ user, setCurrentUser }) {
   }
 
   function handleSubmit(e) {
-    e.preventDefault()
+    e.preventDefault();
 
-    fetch(`http://localhost:3000/users/${user.id}`, {
+    const token = localStorage.getItem("token");
+    fetch('http://localhost:3000/me', {
           method: "PATCH",
           headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({bio: bio})
         })
         .then(r => r.json())
-        .then(data => console.log(data))
+        .then(data => {
+          setUser(data)
+          setBio("") 
+        })
   }
 
   function removeFavorite(e) {
-    e.preventDefault()
+    e.preventDefault();
 
     fetch(`http://localhost:3000/favorite_sports/${e.target.value}`, {
       method: "DELETE",
@@ -56,13 +60,13 @@ function Profile({ user, setCurrentUser }) {
   }
 
   function handleDelete(e) {
-    e.preventDefault()
+    e.preventDefault();
 
     fetch(`http://localhost:3000/users/${user.id}`, {
       method: "DELETE",
      })
     .then(r => r.json())
-    .then(() => setCurrentUser({}))
+    .then(() => setUser(null))
   }
     return (
       <div>
@@ -70,12 +74,13 @@ function Profile({ user, setCurrentUser }) {
           <p>{user.age} years old.</p>
           <p>{user.location}.</p>
           <h4>Bio:</h4>
-          <p>{bio}</p> 
+          <p>{user.bio}</p> 
           <ul>
             {userSports}
           </ul>
           <h4> Rating: {user.rating}</h4>
           <form onSubmit={handleSubmit}>
+            <label>Change Bio</label>
             <textarea type="text" name="bio" onChange={handleBioChange} value={bio} placeholder="Lets Talk About you" />
             <button type="submit">Update Your Bio</button>
           </form>

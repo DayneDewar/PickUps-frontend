@@ -1,11 +1,10 @@
 
-function Sport({ name, equipment, image="../default_sport.jpg", rules, id, user, updateAccount }) {
-    
+function Sport({ name, equipment, image="../default_sport.jpg", rules, id, user }) {
+  
   function addSport(e) {
     e.preventDefault();
 
     const newFavorite = {
-      //using user id of 1 for now until incorporating redux
       user_id: user.id,
       sport_id: id
     }
@@ -18,7 +17,7 @@ function Sport({ name, equipment, image="../default_sport.jpg", rules, id, user,
       body: JSON.stringify(newFavorite)
     })
     .then(r => r.json())
-    .then(newFavoriteSport => updateAccount(newFavoriteSport))
+    .then(newFavoriteSport => console.log(newFavoriteSport))
   }
 
     return (

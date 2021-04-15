@@ -1,10 +1,15 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router";
+import { addSport } from "../Redux/sportsSlice";
 
-function NewSportForm({ user, addNewSport }) {
+function NewSportForm({ user }) {
+    const dispatch = useDispatch();
     const [name, setName] = useState("");
     const [equipment, setEquipment] = useState("");
     const [image, setImage] = useState("");
     const [rules, setRules] = useState("");
+    const history = useHistory();
 
     function handleNameChange(e) {
         setName(e.target.value)
@@ -42,7 +47,8 @@ function NewSportForm({ user, addNewSport }) {
         })
         .then(r => r.json())
         .then(data => {
-            addNewSport(data)
+            dispatch(addSport(data))
+            history.push("/")
             setName("")
             setEquipment("")
             setImage("")
