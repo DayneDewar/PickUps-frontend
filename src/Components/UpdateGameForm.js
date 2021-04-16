@@ -1,23 +1,19 @@
 import { useState } from "react";
 function UpdateGameForm({ id, updateData }) {
     
-    const [newLocation, setNewLocation] = useState("")
-    const [newDate, setNewDate] = useState("")
-    const [newTime, setNewTime] = useState("")
-
-    function handleLocationChange(e) {
-        setNewLocation(e.target.value)
-    }
+    const [newLocation, setNewLocation] = useState("");
+    const [newDate, setNewDate] = useState("");
+    const [newTime, setNewTime] = useState("");
 
     function updateGame(e) {
-
+        e.preventDefault();
+      
         const newDetails = {
             location: newLocation,
             date: newDate,
             time: newTime
         }
 
-        e.preventDefault()
         fetch(`http://localhost:3000/events/${id}`, {
           method: "PATCH",
           headers: {
@@ -27,15 +23,13 @@ function UpdateGameForm({ id, updateData }) {
         })
         .then(r => r.json())
         .then(data => updateData(data))
-    }
-
-    
+    }    
 
     return (
       <div >
           <form onSubmit={updateGame} className="game-update-form">
 
-            <input  type="text" name="location" onChange={handleLocationChange} value={newLocation} placeholder="location" />
+            <input  type="text" name="location" onChange={(e) => setNewLocation(e.target.value)} value={newLocation} placeholder="location" />
             <button type="submit">Update Game</button>
         </form>
       </div>

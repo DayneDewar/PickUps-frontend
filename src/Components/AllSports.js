@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import Sport from "./Sport";
 
 function AllSports({ user }) {
-    const sports = useSelector(storeState => storeState.sports)
+    const sports = useSelector(storeState => storeState.sports);
     const sportArray = sports.map(sport => {
         return (
             <Sport 

@@ -3,15 +3,31 @@ import { useEffect, useState } from "react";
 function Profile({ user, setUser }) {
 
   const [favSportsArr, setFavSportsArr] = useState([]);
-  const [bio, setBio] = useState("")
+  const [bio, setBio] = useState("");
 
-  // useEffect(() => {
-  //   fetch('http://localhost:3000/me')
-  //   .then(r => r.json())
-  //   .then(data => {
-  //     setFavSportsArr(data.favorite_sports)
-  //   })
-  // }, [])
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    fetch('http://localhost:3000/me', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      }
+    })
+      .then(r => {
+        return r.json().then(data => {
+          if (r.ok) {
+            return data
+          } else {
+            throw data
+          }
+        })
+      })
+      .then(data => {
+        setUser(data)
+        setFavSportsArr(data.favorite_sports)
+      })
+      .catch(error => console.log(error))
+    }, [])
 
   const userSports = favSportsArr?.map(favSport => {
     return ( 
@@ -26,7 +42,7 @@ function Profile({ user, setUser }) {
   }
 
   function updateList(id) {
-    const updatedSports = favSportsArr.filter(sport => sport.id !== parseInt(id))
+    const updatedSports = user.favorite_sports.filter(sport => sport.id !== id)
     setFavSportsArr(updatedSports)
   }
 
@@ -56,7 +72,7 @@ function Profile({ user, setUser }) {
       method: "DELETE",
   })
     .then(r => r.json())
-    .then(() => updateList(e.target.value))
+    .then((data) => updateList(data.id))
   }
 
   function handleDelete(e) {

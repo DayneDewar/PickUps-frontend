@@ -3,18 +3,10 @@ import { useHistory } from "react-router";
 
 function Login({ setUser }) {
     
+    const history = useHistory();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState([]);
-    const history = useHistory();
-
-    function changeUsername(e) {
-        setUsername(e.target.value)
-    }
-
-    function changePassword(e) {
-        setPassword(e.target.value)
-    }
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -57,9 +49,9 @@ function Login({ setUser }) {
             <h1>Login</h1> 
             {errors.map(error => <p key={error} style={{ color: "red" }}>{error}</p>)}
             <label>Username</label>
-            <input type="text" name="username" onChange={changeUsername} value={username} />
+            <input type="text" name="username" onChange={(e) => setUsername(e.target.value)} value={username} />
             <label>Password</label>
-            <input type="password" name="password" onChange={changePassword} value={password} />
+            <input type="password" name="password" onChange={(e) => setPassword(e.target.value)} value={password} />
             <button type="submit">Login</button>
           </form>
       </div>

@@ -6,10 +6,11 @@ import NewGameForm from "./NewGameForm";
 
 function GameContainer({ user }) {
     // const [allGames, setAllGames] = useState([]);
+    const dispatch = useDispatch();
     const [myGames, setMyGames] = useState([]);
     const [filter, setFilter] = useState(false);
-    const allGames = useSelector(storeState => storeState.games)
-    const dispatch = useDispatch()
+    const allGames = useSelector(storeState => storeState.games);
+    console.log(allGames)
     // useEffect(() => {
     //     fetch('http://localhost:3000/events')
     //     .then(r => r.json())
@@ -23,8 +24,6 @@ function GameContainer({ user }) {
     //   const updatedGames = allGames.filter(game => game.id !== id)
     //   setAllGames(updatedGames)
     // }
-
-    
 
     function sendNewGame(data) {
         dispatch(addGame(data))
@@ -59,6 +58,7 @@ function GameContainer({ user }) {
             key={game.id}
             game={game}
             user={user}
+            host={(game.users[0].id === user?.id)}
           />
         )
     })
@@ -83,7 +83,7 @@ function GameContainer({ user }) {
     return (
       <div className="game-container">
         <NewGameForm sendNewGame={sendNewGame} />
-        <button onClick={() => setFilter(!filter)}>{filter ? "Show All PickUp Games" : "Just My PickUp Games"}</button>
+        <button onClick={(e) => setFilter(!filter)}>{filter ? "Show All PickUp Games" : "Just My PickUp Games"}</button>
         {filter ? justMyGames : everyGame}
       </div>
     );

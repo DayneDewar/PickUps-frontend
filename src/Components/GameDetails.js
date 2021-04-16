@@ -2,21 +2,20 @@ import UpdateGameForm from "./UpdateGameForm"
 import { useState } from "react"
 import Map from "./Map"
 import { useDispatch } from "react-redux"
-import { removeGame } from "../Redux/gamesSlice";
+import { removeGame, updateGamePlayers } from "../Redux/gamesSlice";
 
-function GameDetails({ game, user }) {
-    const [detailChange, setDetailChange] = useState(false);
+function GameDetails({ game, user, host, signedUp, setSignedUp }) {
+    
+    const dispatch = useDispatch();
     const [newLati, setNewLati] = useState(game.lat);
     const [newLong, setNewLong] = useState(game.lng);
-    const [signedUp, setSignedUp] = useState(false);
+    const [showUpdate, setShowUpdate] = useState(false);
     const [playersArr, setPlayersArr] = useState(game.users);
-    const dispatch = useDispatch();
-
-    console.log(playersArr)
 
     const playersListing = playersArr.map((player) => {
         return (
             <li key={player.id}>
+                {/* { host ? <p>[HOST]</p> : null } */}
                 {player.firstname} {player.lastname} - Rating: {player.rating}
                 <button id="like" value={player.id} onClick={handleRating}>👍🏾</button>
                 <button id="dislike" value={player.id} onClick={handleRating}>👎🏾</button>
@@ -27,12 +26,13 @@ function GameDetails({ game, user }) {
     function renderReview(data) {
         const newPlayerArr = playersArr.map((player) => {
             if (player.id === data.id) {
-                player.rating = data.rating
-                return player
+                return data
             }
             else return player
         })
         setPlayersArr(newPlayerArr)
+        console.log([game, data])
+        dispatch(updateGamePlayers([game, data]))
     }
 
     function handleRating(e) {
@@ -48,8 +48,7 @@ function GameDetails({ game, user }) {
             })
             .then(r => r.json())
             .then(data => renderReview(data) )
-        }
-        else if (e.target.id === "dislike") {
+        } else if (e.target.id === "dislike") {
             fetch(`http://localhost:3000/users/${e.target.value}/player_rating`, {
             method: "PATCH",
             headers: {
@@ -62,23 +61,19 @@ function GameDetails({ game, user }) {
         }
     }
 
-    function handleDetailChange() {
-        setDetailChange(!detailChange)
-    }
-
     function updateData(data) {
         setNewLati(data.lat)
         setNewLong(data.lng)
     }
 
     function handleCancel(e) {
-        e.preventDefault()
+        e.preventDefault();
 
         const deleteEvent = {
             user_id: user.id,
             event_id: game.id
         }
-        fetch(`http://localhost:3000/cancel/`, {
+        fetch('http://localhost:3000/cancel/', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -87,12 +82,15 @@ function GameDetails({ game, user }) {
         })
         .then(r => r.json())
         .then(data => {
-            setSignedUp(!signedUp)
+            const removePlayer = playersArr.filter(player => player.id !== user.id)
+            setPlayersArr(removePlayer)
+            console.log(data)
+            setSignedUp(false)
         })
       }
-// should update the players Arr
+
       function handleSignUp(e) {
-        e.preventDefault()
+        e.preventDefault();
 
         const addEvent = {
             user_id: user.id,
@@ -106,7 +104,11 @@ function GameDetails({ game, user }) {
             body: JSON.stringify(addEvent)
         })
         .then(r => r.json())
-        .then(data => console.log(data))
+        .then(data => {
+            const addPlayer = [...playersArr, user]
+            setPlayersArr(addPlayer)
+            setSignedUp(true)
+        })
       }
 
       function handleDelete(e) {
@@ -129,10 +131,10 @@ function GameDetails({ game, user }) {
           <ul>
               {playersListing}
           </ul>
-          { user.id === game.users[0].id ? <button onClick={handleDetailChange}>Change Details</button> : null }
+          { host ? <button onClick={(e) => setShowUpdate(!showUpdate)}>Change Details</button> : null }
           { signedUp ? <button onClick={handleCancel}>Can't Make It?</button> : <button onClick={handleSignUp}>Sign Up To Play!</button> }
-          { detailChange ? <UpdateGameForm id={game.id} updateData={updateData} /> : null}
-          { true ? <button onClick={handleDelete}>Cancel The Event</button> : null}
+          { showUpdate ? <UpdateGameForm id={game.id} updateData={updateData} /> : null}
+          { showUpdate ? <button onClick={handleDelete}>Cancel The Event</button> : null}
       </div>
     );
 }
