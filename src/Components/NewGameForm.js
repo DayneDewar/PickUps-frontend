@@ -1,15 +1,16 @@
 import { useState } from "react";
-import DatePicker from 'react-date-picker';
-import { useSelector } from "react-redux";
-import TimePicker from 'react-time-picker';
+import { useDispatch, useSelector } from "react-redux";
+import { addGame } from "../Redux/gamesSlice";
+import DatePicker from 'react-datepicker';
+import "react-datepicker/dist/react-datepicker.css";
 
-function NewGameForm({ sendNewGame }) {
+function NewGameForm({ user }) {
 
+    const dispatch = useDispatch();
     const [location, setLocation] = useState("");
     const [equipment, setEquipment] = useState(false);
     const [sportId, setSportId] = useState(0);
-    const [date, setDate] = useState(new Date());
-    const [time, setTime] = useState('10:00');
+    const [datetime, setDatetime] = useState(new Date());
     const sports = useSelector(storeState => storeState.sports);
     const allSportsName = sports.map(sport => {
         return <option key={sport.id} value={sport.id}>{sport.name}</option>
@@ -21,9 +22,9 @@ function NewGameForm({ sendNewGame }) {
         const newGame = {
             location,
             equipment,
-            date,
-            time,
-            sport_id: sportId
+            datetime,
+            sport_id: sportId,
+            user_id: user.id
         }
 
         fetch('http://localhost:3000/events', {
@@ -34,7 +35,10 @@ function NewGameForm({ sendNewGame }) {
             body: JSON.stringify(newGame)
         })
         .then(r => r.json())
-        .then(data => sendNewGame(data))
+        .then(data => {
+            dispatch(addGame(data))
+            setLocation("")
+        })
     }
 
     return (
@@ -48,8 +52,15 @@ function NewGameForm({ sendNewGame }) {
             <label htmlFor="equipment">Do You Have The Equipment</label>
             <input  type="checkbox" name="equipment" onChange={(e) => setEquipment(!equipment)} value={equipment} />
             <label htmlFor="date">Date</label>
-            <DatePicker value={date} onChange={setDate} />
-            <TimePicker value={time} onChange={setTime} />
+            <DatePicker 
+            selected={datetime} 
+            value={datetime} 
+            onChange={setDatetime} 
+            showTimeSelect 
+            timeFormat="HH:mm"
+            timeIntervals={15}
+            timeCaption="time"
+            dateFormat="MMMM d, yyyy h:mm aa"/>
             <button type="submit">Create New Game</button>
         </form>
       </div>

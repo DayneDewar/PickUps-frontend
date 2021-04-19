@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 
 function Profile({ user, setUser }) {
-
+const mydate = new Date(1618795354049) 
   const [favSportsArr, setFavSportsArr] = useState([]);
   const [bio, setBio] = useState("");
-
-  useEffect(() => {
+ useEffect(() => {
     const token = localStorage.getItem("token");
 
     fetch('http://localhost:3000/me', {
@@ -87,6 +86,7 @@ function Profile({ user, setUser }) {
     return (
       <div>
           <h2>Hello, {user.firstname}</h2>
+          {/* <h1>{mydate.toDateString}</h1> */}
           <p>{user.age} years old.</p>
           <p>{user.location}.</p>
           <h4>Bio:</h4>

@@ -1,5 +1,6 @@
 import { useState } from "react";
-import GameDetails from "./GameDetails"
+import GameDetails from "./GameDetails";
+import moment from 'moment';
 
 function Game({ game, user, host }) {
 
@@ -9,7 +10,8 @@ function Game({ game, user, host }) {
   function findSignedUp(e) {
     setDetails(!details)
     const checkIfSignedUp = game.users.some(player => player.id === user.id)
-    setSignedUp(checkIfSignedUp)
+    // setSignedUp(checkIfSignedUp)
+    console.log(game)
   }
 
     return (
@@ -17,6 +19,7 @@ function Game({ game, user, host }) {
         <h2>{game.sport.name}</h2>
         <p>Players: {game.users?.length}</p>
         <p>Location: {game.location}</p>
+        <p>Date: {moment(game.datetime).calendar()}</p>
         <p>Equipment Available: { game.equipment ? "✅" : "❌"}</p>
         <button onClick={findSignedUp}>{ details ? "Hide Details" : "Show PickUp Details"}</button>
         { details ? <GameDetails game={game} user={user} host={host} signedUp={signedUp} setSignedUp={setSignedUp} /> : null }

@@ -2,7 +2,7 @@ import UpdateGameForm from "./UpdateGameForm"
 import { useState } from "react"
 import Map from "./Map"
 import { useDispatch } from "react-redux"
-import { removeGame, updateGamePlayers } from "../Redux/gamesSlice";
+import { removeGame, updateGamePlayers, addGamePlayers } from "../Redux/gamesSlice";
 
 function GameDetails({ game, user, host, signedUp, setSignedUp }) {
     
@@ -25,13 +25,13 @@ function GameDetails({ game, user, host, signedUp, setSignedUp }) {
 
     function renderReview(data) {
         const newPlayerArr = playersArr.map((player) => {
-            if (player.id === data.id) {
+            if (player.id === parseInt(data.id)) {
                 return data
             }
             else return player
         })
         setPlayersArr(newPlayerArr)
-        console.log([game, data])
+        console.log(newPlayerArr)
         dispatch(updateGamePlayers([game, data]))
     }
 
@@ -57,7 +57,7 @@ function GameDetails({ game, user, host, signedUp, setSignedUp }) {
             body: JSON.stringify({review: 0})
             })
             .then(r => r.json())
-            .then(data =>renderReview(data))
+            .then(data => renderReview(data))
         }
     }
 
@@ -96,6 +96,7 @@ function GameDetails({ game, user, host, signedUp, setSignedUp }) {
             user_id: user.id,
             event_id: game.id
         }
+
         fetch(`http://localhost:3000/user_events`, {
             method: "POST",
             headers: {
@@ -108,6 +109,7 @@ function GameDetails({ game, user, host, signedUp, setSignedUp }) {
             const addPlayer = [...playersArr, user]
             setPlayersArr(addPlayer)
             setSignedUp(true)
+            dispatch(addGamePlayers([game, user]))
         })
       }
 
@@ -121,9 +123,11 @@ function GameDetails({ game, user, host, signedUp, setSignedUp }) {
             },
           })
           .then(r => r.json())
-          .then(() => dispatch(removeGame(game)))
+          .then(() => {
+              dispatch(removeGame(game))
+        })
       }
-
+console.log(game)
     return (
       <div >
           <Map lati={newLati} long={newLong} />
