@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Button } from "semantic-ui-react";
 function UpdateGameForm({ id, updateData }) {
     
     const [newLocation, setNewLocation] = useState("");
@@ -30,7 +31,7 @@ function UpdateGameForm({ id, updateData }) {
           <form onSubmit={updateGame} className="game-update-form">
 
             <input  type="text" name="location" onChange={(e) => setNewLocation(e.target.value)} value={newLocation} placeholder="location" />
-            <button type="submit">Update Game</button>
+            <Button type="submit">Update Game</Button>
         </form>
       </div>
     );

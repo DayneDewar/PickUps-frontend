@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useHistory } from "react-router";
+import { Button, Checkbox, Form, FormField } from 'semantic-ui-react';
 
 function Login({ setUser }) {
     
@@ -45,15 +46,19 @@ function Login({ setUser }) {
 
     return (
       <div id="login-form">
-          <form onSubmit={handleSubmit}>
+          <Form onSubmit={handleSubmit}>
             <h1>Login</h1> 
             {errors.map(error => <p key={error} style={{ color: "red" }}>{error}</p>)}
+            <Form.Field>
             <label>Username</label>
-            <input type="text" name="username" onChange={(e) => setUsername(e.target.value)} value={username} />
+            <input type="text" name="username" onChange={(e) => setUsername(e.target.value)} value={username} placeholder="Username"/>
+            </Form.Field>
+            <FormField>
             <label>Password</label>
-            <input type="password" name="password" onChange={(e) => setPassword(e.target.value)} value={password} />
-            <button type="submit">Login</button>
-          </form>
+            <input type="password" name="password" onChange={(e) => setPassword(e.target.value)} value={password} placeholder="Password" />
+            </FormField>
+            <Button type="submit">Login</Button>
+          </Form>
       </div>
     );
 }

@@ -1,6 +1,10 @@
+import { useState } from "react";
+import { Button } from "semantic-ui-react";
 
 function Sport({ name, equipment, image="../default_sport.jpg", rules, id, user }) {
   
+  const [active, setActive] = useState(false);
+
   function addSport(e) {
     e.preventDefault();
 
@@ -17,7 +21,7 @@ function Sport({ name, equipment, image="../default_sport.jpg", rules, id, user 
       body: JSON.stringify(newFavorite)
     })
     .then(r => r.json())
-    .then(newFavoriteSport => console.log(newFavoriteSport))
+    .then(newFavoriteSport => setActive(true))
   }
 
     return (
@@ -25,7 +29,7 @@ function Sport({ name, equipment, image="../default_sport.jpg", rules, id, user 
         <img src={image} alt={name} />
         <h3>{name}</h3>
         <h4>Equipment: {equipment}</h4>
-        <button onClick={addSport}>+</button>
+        <Button toggle active={active} onClick={addSport}>+</Button>
         <p>Rules: {rules}</p>
       </div>
     );

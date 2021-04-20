@@ -1,4 +1,5 @@
 import { NavLink, useHistory } from "react-router-dom";
+import { Menu, Image, Button, Icon } from "semantic-ui-react";
 
 function NavBar({ user, setUser }) {
   const history = useHistory();
@@ -9,22 +10,42 @@ function NavBar({ user, setUser }) {
     setUser(null)
   }
     return (
-      <div id="nav-bar">
-          <NavLink className="navlinks" to='/'>Home</NavLink>
-          <NavLink className="navlinks" to='/Games'>PickUp Games</NavLink>
+      <div>
+        <Menu>
+          <Menu.Item>
+            <NavLink className="navlinks" to='/'>Home</NavLink>
+          </Menu.Item>
+          <Menu.Item>
+            <NavLink className="navlinks" to='/Games'>PickUp Games</NavLink>
+          </Menu.Item>
           { user ? (
             <>
-              <NavLink className="navlinks" id="nav-account" to='/MyProfile'>Account</NavLink>
+            <Menu.Item>
               <NavLink className="navlinks" to='/NewSport'>Make A New Sport</NavLink>
-              <button onClick={logout}>Logout</button>
+            </Menu.Item>
+            <Menu.Item position="right">
+              <NavLink color="green" basic icon className="navlinks" id="nav-account" to='/MyProfile'>
+                <Icon name="user"></Icon>
+                Account</NavLink>
+            </Menu.Item>
+            <Menu.Item >
+              <Button color="red" basic icon onClick={logout}>
+                <Icon name="log out"></Icon>
+                Logout
+              </Button>
+            </Menu.Item>
             </>
           ) : (
             <>
-              <NavLink className="navlinks" id="nav-login" to='/Login'>Login</NavLink>
-              <NavLink className="navlinks" id="nav-signup" to='/Signup'>SignUp</NavLink>
+              <Menu.Item position="right">
+                <NavLink color="green" basic icon className="navlinks" id="nav-login" to='/Login'>Login</NavLink>
+              </Menu.Item>
+              <Menu.Item >
+                <NavLink className="navlinks" id="nav-signup" to='/Signup'>SignUp</NavLink>
+              </Menu.Item>
             </>
           )}
-          
+          </Menu>
       </div>
     );
 }

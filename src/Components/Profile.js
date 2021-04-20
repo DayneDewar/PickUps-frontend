@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
+import { Button, Confirm } from "semantic-ui-react";
 
 function Profile({ user, setUser }) {
-const mydate = new Date(1618795354049) 
   const [favSportsArr, setFavSportsArr] = useState([]);
   const [bio, setBio] = useState("");
+  const [open, setOpen] = useState(false)
+
  useEffect(() => {
     const token = localStorage.getItem("token");
 
@@ -31,7 +33,7 @@ const mydate = new Date(1618795354049)
   const userSports = favSportsArr?.map(favSport => {
     return ( 
       <li key={favSport.id}>
-        {favSport.sport.name} - <button value={favSport.id} onClick={removeFavorite}>X</button>
+        {favSport.sport.name} - <Button value={favSport.id} onClick={removeFavorite}>X</Button>
       </li>
     )
   })
@@ -98,9 +100,16 @@ const mydate = new Date(1618795354049)
           <form onSubmit={handleSubmit}>
             <label>Change Bio</label>
             <textarea type="text" name="bio" onChange={handleBioChange} value={bio} placeholder="Lets Talk About you" />
-            <button type="submit">Update Your Bio</button>
+            <Button primary type="submit">Update Your Bio</Button>
           </form>
-          <button onClick={handleDelete}>Delete Account</button>
+          <div>
+            <Button secondary onClick={(e) => setOpen(true)}>Delete Account</Button>
+            <Confirm 
+            open={open}
+            onCancel={(e) => setOpen(false)}
+            onConfirm={handleDelete}>
+            </Confirm>
+          </div>
       </div>
     );
 }

@@ -1,10 +1,13 @@
 import { useSelector } from "react-redux";
 import Sport from "./Sport";
+import { Grid, Image } from 'semantic-ui-react';
+
 
 function AllSports({ user }) {
     const sports = useSelector(storeState => storeState.sports);
     const sportArray = sports.map(sport => {
         return (
+            <Grid.Column>
             <Sport 
                 key={sport.id}
                 name={sport.name}
@@ -14,12 +17,13 @@ function AllSports({ user }) {
                 id={sport.id}
                 user={user}
             />
+            </Grid.Column>
         )
     })
     return (
-      <div className="sport-container">
+      <Grid relaxed columns={4} className="sport-container">
           {sportArray}
-      </div>
+      </Grid>
     );
 }
   

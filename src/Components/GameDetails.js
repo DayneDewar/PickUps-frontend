@@ -2,7 +2,7 @@ import UpdateGameForm from "./UpdateGameForm"
 import { useState } from "react"
 import Map from "./Map"
 import { useDispatch } from "react-redux"
-import { removeGame, updateGamePlayers, addGamePlayers } from "../Redux/gamesSlice";
+import { removeGame, updateGamePlayers, addGamePlayers, removeGamePlayers } from "../Redux/gamesSlice";
 
 function GameDetails({ game, user, host, signedUp, setSignedUp }) {
     
@@ -84,8 +84,9 @@ function GameDetails({ game, user, host, signedUp, setSignedUp }) {
         .then(data => {
             const removePlayer = playersArr.filter(player => player.id !== user.id)
             setPlayersArr(removePlayer)
-            console.log(data)
             setSignedUp(false)
+            dispatch(removeGamePlayers([game, user]))
+
         })
       }
 
@@ -127,8 +128,8 @@ function GameDetails({ game, user, host, signedUp, setSignedUp }) {
               dispatch(removeGame(game))
         })
       }
-console.log(game)
-    return (
+
+      return (
       <div >
           <Map lati={newLati} long={newLong} />
           <h3>Players</h3>

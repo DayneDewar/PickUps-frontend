@@ -16,16 +16,28 @@ export const gamesSlice = createSlice({
             return  state.filter(game => game.id !== gameId)
         },
         addGamePlayers: (state, action) => {
-            console.log(action.payload)
             const gameId = parseInt(action.payload[0].id)
             return state.map((gameObj) => {
-                console.log(gameObj)
                 if (gameObj.id !== gameId) {
                     return gameObj
                 }
                 else return (
                     produce(gameObj, draftState => {
                         draftState.users.push(action.payload[1])
+                    })
+                )
+            })
+        },
+        removeGamePlayers: (state, action) => {
+            const gameId = parseInt(action.payload[0].id)
+            const userId = parseInt(action.payload[1].id)
+            return state.map((gameObj) => {
+                if (gameObj.id !== gameId) {
+                    return gameObj
+                }
+                else return (
+                    produce(gameObj, draftState => {
+                        draftState.users.filter((user) => user.id !== userId)
                     })
                 )
             })
@@ -56,6 +68,7 @@ const overrideGames = gamesSlice.actions.overrideGames
 const addGame = gamesSlice.actions.addGame
 const removeGame = gamesSlice.actions.removeGame
 const addGamePlayers = gamesSlice.actions.addGamePlayers
+const removeGamePlayers = gamesSlice.actions.removeGamePlayers
 const updateGamePlayers = gamesSlice.actions.updateGamePlayers
-export { overrideGames, addGame, removeGame, updateGamePlayers, addGamePlayers }
+export { overrideGames, addGame, removeGame, updateGamePlayers, addGamePlayers, removeGamePlayers}
 export default gamesSlice.reducer
