@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Switch, Route } from 'react-router';
-import './App.css';
 import AllSports from './Components/AllSports';
 import GameContainer from './Components/GameContainer';
-import Header from './Components/Header';
+import HeaderComponent from './Components/HeaderComponent';
 import NavBar from './Components/NavBar';
 import NewSportForm from './Components/NewSportForm';
 import Profile from './Components/Profile';
@@ -54,7 +53,7 @@ function App() {
 
   return (
     <div>
-      <Header />
+      <HeaderComponent />
       <NavBar user={user} setUser={setUser} />
       <Switch>
         <Route exact path="/">

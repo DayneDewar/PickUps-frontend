@@ -3,23 +3,25 @@ import { useState } from "react"
 import Map from "./Map"
 import { useDispatch } from "react-redux"
 import { removeGame, updateGamePlayers, addGamePlayers, removeGamePlayers } from "../Redux/gamesSlice";
+import { Modal, Button, Header, List, Popup } from "semantic-ui-react";
 
-function GameDetails({ game, user, host, signedUp, setSignedUp }) {
+function GameDetails({ game, user, host }) {
     
     const dispatch = useDispatch();
+    const [open, setOpen] = useState(false)
+    const [signedUp, setSignedUp] = useState(user.events.some((event) => event.id === game.id) || host)
     const [newLati, setNewLati] = useState(game.lat);
     const [newLong, setNewLong] = useState(game.lng);
-    const [showUpdate, setShowUpdate] = useState(false);
     const [playersArr, setPlayersArr] = useState(game.users);
 
     const playersListing = playersArr.map((player) => {
         return (
-            <li key={player.id}>
+            <List.Item key={player.id}>
                 {/* { host ? <p>[HOST]</p> : null } */}
                 {player.firstname} {player.lastname} - Rating: {player.rating}
-                <button id="like" value={player.id} onClick={handleRating}>👍🏾</button>
-                <button id="dislike" value={player.id} onClick={handleRating}>👎🏾</button>
-            </li>
+                <Button  id="like" value={player.id} onClick={handleRating}>👍🏾</Button>
+                <Button id="dislike" value={player.id} onClick={handleRating}>👎🏾</Button>
+            </List.Item>
         )
     })
 
@@ -62,6 +64,7 @@ function GameDetails({ game, user, host, signedUp, setSignedUp }) {
     }
 
     function updateData(data) {
+        // Update redux
         setNewLati(data.lat)
         setNewLong(data.lng)
     }
@@ -86,7 +89,6 @@ function GameDetails({ game, user, host, signedUp, setSignedUp }) {
             setPlayersArr(removePlayer)
             setSignedUp(false)
             dispatch(removeGamePlayers([game, user]))
-
         })
       }
 
@@ -130,17 +132,28 @@ function GameDetails({ game, user, host, signedUp, setSignedUp }) {
       }
 
       return (
-      <div >
-          <Map lati={newLati} long={newLong} />
-          <h3>Players</h3>
-          <ul>
-              {playersListing}
-          </ul>
-          { host ? <button onClick={(e) => setShowUpdate(!showUpdate)}>Change Details</button> : null }
-          { signedUp ? <button onClick={handleCancel}>Can't Make It?</button> : <button onClick={handleSignUp}>Sign Up To Play!</button> }
-          { showUpdate ? <UpdateGameForm id={game.id} updateData={updateData} /> : null}
-          { showUpdate ? <button onClick={handleDelete}>Cancel The Event</button> : null}
-      </div>
+        <Modal onClose={() => setOpen(false)} onOpen={() => setOpen(true)} open={open} trigger={<Button color="twitter">Show Details</Button>}>
+            <Modal.Header style={{fontSize: "large"}} >{game.sport.name}  <Button style={{position: "relative", top: "-7px" }} color="black" floated="right" onClick={(e) => setOpen(false)}>Close</Button></Modal.Header>
+            <Modal.Content style={{ height:"24vw", overflow: "auto"}} > 
+            { host ? <Header style={{position: "relative", top: "-.75vw", height:"0vw"}} textAlign="center" color="red">[HOST]</Header> : null}
+            <Map lati={newLati} long={newLong} />
+            <Modal.Description style={{overflow: "auto"}}>
+                <Header textAlign="center">Location</Header>
+                <p style={{textAlign: "center"}}>{game.location}</p>
+                <Header textAlign="center" >Equipment Available</Header>
+                <p style={{textAlign: "center"}}>{game.equipment ? "✅" : "❌"}</p>
+                <Header textAlign="center" >Players</Header>
+                <List animated verticalAlign="middle">
+                    {playersListing}
+                </List>
+        </Modal.Description >
+          </Modal.Content>
+          <Modal.Actions style={{ height:"4vw", display: "flex"}}>
+          { signedUp ? <Button floated="left" onClick={handleCancel}>Can't Make It?</Button> : <Button color="olive" floated="left" onClick={handleSignUp}>Sign Up To Play!</Button> }
+          { host ? <UpdateGameForm game={game} updateData={updateData} /> : null}
+          { host ? <Button floated="right" color="red" onClick={handleDelete}>Cancel The Event</Button> : null}
+          </Modal.Actions>
+      </Modal>
     );
 }
   

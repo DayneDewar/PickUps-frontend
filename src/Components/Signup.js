@@ -53,7 +53,7 @@ function Signup({ setUser }) {
     }
 
     return (
-      <div id="signup-form">
+      <div id="signup-form" >
           <form onSubmit={handleSubmit}>
             <h1>Create Your Account</h1>
             {errors.map(error => <p key={error} style={{ color: "red" }}>{error}</p>)}

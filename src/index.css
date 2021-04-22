@@ -1,4 +1,4 @@
-body {
+/* body {
   background-color: #1a1d23;
   background-repeat:repeat, no-repeat;
   background-size:auto, 100% 100%;
@@ -24,14 +24,14 @@ code {
 
 #login-form h1{
   margin-top: 100px;
-}
+} */
 
 .map {
-  width: 40vw;
-  height: 40vw;
-  position: relative;
+  width: 23vw;
+  height: 20.5vw;
+  float: right;
 }
-
+/* 
 #nav-bar {
   float: left;
 }
@@ -59,4 +59,4 @@ code {
   border-radius: 5px 5px 0 0;
   width: 265px;
   height: 200px;
-}
+} */

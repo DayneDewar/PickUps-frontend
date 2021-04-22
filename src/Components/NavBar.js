@@ -10,8 +10,7 @@ function NavBar({ user, setUser }) {
     setUser(null)
   }
     return (
-      <div>
-        <Menu>
+        <Menu color="purple">
           <Menu.Item>
             <NavLink className="navlinks" to='/'>Home</NavLink>
           </Menu.Item>
@@ -46,7 +45,6 @@ function NavBar({ user, setUser }) {
             </>
           )}
           </Menu>
-      </div>
     );
 }
   

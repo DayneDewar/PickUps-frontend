@@ -1,29 +1,20 @@
 import { useState } from "react";
 import GameDetails from "./GameDetails";
 import moment from 'moment';
+import { Card } from "semantic-ui-react";
 
 function Game({ game, user, host }) {
 
-  const [details, setDetails] = useState(false)
-  const [signedUp, setSignedUp] = useState(null)
-
-  function findSignedUp(e) {
-    setDetails(!details)
-    const checkIfSignedUp = game.users.some(player => player.id === user.id)
-    // setSignedUp(checkIfSignedUp)
-    console.log(game)
-  }
-
     return (
-      <div className="game-card">
-        <h2>{game.sport.name}</h2>
-        <p>Players: {game.users?.length}</p>
-        <p>Location: {game.location}</p>
-        <p>Date: {moment(game.datetime).calendar()}</p>
-        <p>Equipment Available: { game.equipment ? "✅" : "❌"}</p>
-        <button onClick={findSignedUp}>{ details ? "Hide Details" : "Show PickUp Details"}</button>
-        { details ? <GameDetails game={game} user={user} host={host} signedUp={signedUp} setSignedUp={setSignedUp} /> : null }
-      </div>
+      <Card color="black" style={{height: "238px", width: "218px" , paddingRight: "0px"}}>
+        <Card.Content>
+        <Card.Header style={{color: "grey"}} >{game.sport.name}</Card.Header> 
+        <img src={game.sport.image} height="125px" width="175px"/>
+        <Card.Description>Date: </Card.Description>
+        <Card.Description>{moment(game.datetime).calendar()}</Card.Description>
+          <GameDetails game={game} user={user} host={host} />
+        </Card.Content>
+      </Card>
     );
 }
   

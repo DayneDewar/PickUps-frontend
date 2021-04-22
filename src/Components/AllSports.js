@@ -1,13 +1,13 @@
 import { useSelector } from "react-redux";
 import Sport from "./Sport";
-import { Grid, Image } from 'semantic-ui-react';
+import { Grid, Image, Header } from 'semantic-ui-react';
 
 
 function AllSports({ user }) {
     const sports = useSelector(storeState => storeState.sports);
-    const sportArray = sports.map(sport => {
+    const sportArray = sports.map((sport, index) => {
         return (
-            <Grid.Column>
+            <Grid.Column key={index} style={{paddingLeft: "85px" }}>
             <Sport 
                 key={sport.id}
                 name={sport.name}
@@ -21,9 +21,12 @@ function AllSports({ user }) {
         )
     })
     return (
-      <Grid relaxed columns={4} className="sport-container">
+      <div >
+        <Header textAlign="centered" as="h2" >Find Your Favorite Sports</Header>
+         <Grid relaxed center columns={4} style={{position: "center" }} className="sport-container">
           {sportArray}
-      </Grid>
+        </Grid>
+      </div>
     );
 }
   

@@ -45,8 +45,8 @@ function Login({ setUser }) {
     }
 
     return (
-      <div id="login-form">
-          <Form onSubmit={handleSubmit}>
+      <div id="login-form" >
+          <Form onSubmit={handleSubmit} style={{maxWidth:"25%", textAlign: "center", margin: "auto"}}>
             <h1>Login</h1> 
             {errors.map(error => <p key={error} style={{ color: "red" }}>{error}</p>)}
             <Form.Field>

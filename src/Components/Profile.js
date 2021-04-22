@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
-import { Button, Confirm } from "semantic-ui-react";
+import { useHistory } from "react-router";
+import { Button, Card, Confirm, Form, List, Rating, Divider, Header } from "semantic-ui-react";
 
 function Profile({ user, setUser }) {
+
+  const history = useHistory()
   const [favSportsArr, setFavSportsArr] = useState([]);
   const [bio, setBio] = useState("");
   const [open, setOpen] = useState(false)
@@ -32,9 +35,9 @@ function Profile({ user, setUser }) {
 
   const userSports = favSportsArr?.map(favSport => {
     return ( 
-      <li key={favSport.id}>
-        {favSport.sport.name} - <Button value={favSport.id} onClick={removeFavorite}>X</Button>
-      </li>
+      <List.Item key={favSport.id}  >
+        <Header size="medium" color="grey">{favSport.sport.name} - <Button style={{float: "right"}} value={favSport.id} onClick={removeFavorite}>X</Button></Header>
+      </List.Item>
     )
   })
 
@@ -43,7 +46,7 @@ function Profile({ user, setUser }) {
   }
 
   function updateList(id) {
-    const updatedSports = user.favorite_sports.filter(sport => sport.id !== id)
+    const updatedSports = favSportsArr.filter(sport => sport.id !== id)
     setFavSportsArr(updatedSports)
   }
 
@@ -77,39 +80,55 @@ function Profile({ user, setUser }) {
   }
 
   function handleDelete(e) {
+    history.push("/")
     e.preventDefault();
 
     fetch(`http://localhost:3000/users/${user.id}`, {
       method: "DELETE",
      })
     .then(r => r.json())
-    .then(() => setUser(null))
+    .then(() => {
+      setUser(null)
+    })
   }
     return (
-      <div>
-          <h2>Hello, {user.firstname}</h2>
-          {/* <h1>{mydate.toDateString}</h1> */}
-          <p>{user.age} years old.</p>
-          <p>{user.location}.</p>
-          <h4>Bio:</h4>
-          <p>{user.bio}</p> 
-          <ul>
+      <div >
+        <Card style={{ width: "40vw", textAlign: "center", margin: "auto"}} >
+        <Card.Content>
+          <Card.Header style={{textAlign: "center"}} as="h1">Profile Info</Card.Header>
+          {favSportsArr.length > 0 ? <Card.Header as="h2" style={{float: "right", marginTop: "auto", width: "fit-content"}} color="silver"> Favorite Sports</Card.Header> : null}
+          <Card.Content>
+          <Card.Header as="h3"style={{width: "fit-content"}} >{user.firstname} {user.lastname}</Card.Header>
+          <List style={{float: "right"}}>
             {userSports}
-          </ul>
-          <h4> Rating: {user.rating}</h4>
-          <form onSubmit={handleSubmit}>
-            <label>Change Bio</label>
-            <textarea type="text" name="bio" onChange={handleBioChange} value={bio} placeholder="Lets Talk About you" />
-            <Button primary type="submit">Update Your Bio</Button>
-          </form>
-          <div>
-            <Button secondary onClick={(e) => setOpen(true)}>Delete Account</Button>
+          </List>
+          <Card.Meta style={{width: "fit-content"}}>{user.location}</Card.Meta>
+          <Card.Description style={{width: "fit-content", textAlign: "left"}}>
+            <Card.Header as="h4" style={{width: "fit-content", marginTop: "1vw"}}>Rating: <Rating icon="star" defaultRating={user.rating} maxRating={user.rating}/></Card.Header>
+            <Card.Header as="h4" >Bio:</Card.Header>
+            {user.bio}
+          </Card.Description>
+          </Card.Content>
+          </Card.Content>
+          <Divider />
+          <Card.Content>
+            <Card.Header style={{textAlign: "center"}}> Edit Your Bio </Card.Header>
+          <Form onSubmit={handleSubmit} >
+            <Form.Field>
+            <textarea style={{width: "100%"}}type="text" name="bio" onChange={handleBioChange} value={bio} placeholder="Lets Talk About you" />
+            </Form.Field>
+            <Button primary type="submit">Change</Button>
+          </Form>
+          <div style={{display: "relative", float: "right"}}>
+            <Button style={{marginTop: "-5vw"}} secondary onClick={(e) => setOpen(true)}>Delete Account</Button>
             <Confirm 
             open={open}
             onCancel={(e) => setOpen(false)}
             onConfirm={handleDelete}>
             </Confirm>
           </div>
+          </Card.Content>
+          </Card>
       </div>
     );
 }

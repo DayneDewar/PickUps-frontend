@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Card, Header } from "semantic-ui-react";
 import { addGame } from "../Redux/gamesSlice";
 import Game from "./Game";
 import NewGameForm from "./NewGameForm";
@@ -10,9 +11,9 @@ function GameContainer({ user }) {
     const [filter, setFilter] = useState(false);
     const allGames = useSelector(storeState => storeState.games);
     
-    useEffect(() => {
+    // useEffect(() => {
       
-    }, [])
+    // }, [])
 
     const filtered = allGames.filter(game => {
       if (filter) {
@@ -35,10 +36,11 @@ function GameContainer({ user }) {
     })
 
     return (
-      <div className="game-container">
+      <div className="game-container" style={{textAlign: "center"}}>
         <NewGameForm user={user} />
-        <button onClick={(e) => setFilter(!filter)}>{filter ? "Show All PickUp Games" : "Just My PickUp Games"}</button>
+        <Card.Group itemsPerRow={4} style={{magrin: "auto", width: "101vw", overflow: "auto", paddingLeft: "1vw", paddingTop: "1.5vw"}}>
         {everyGame}
+        </Card.Group>
       </div>
     );
 }
