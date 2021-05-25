@@ -41,6 +41,14 @@ function Profile({ user, setUser }) {
     )
   })
 
+  const friendsList = user.friends?.map(friend => {
+    return (
+      <List.Item key={friend.id}>
+        {friend.firstname} {friend.lastname}
+      </List.Item>
+    )
+  })
+
   function handleBioChange(e) {
     setBio(e.target.value)
   }
@@ -128,6 +136,16 @@ function Profile({ user, setUser }) {
             </Confirm>
           </div>
           </Card.Content>
+          </Card>
+          <Card style={{ width: "15vw", textAlign: "center", margin: "auto", }} >
+            <Card.Content>
+              <Card.Header>Friends List</Card.Header>
+              <Card.Description>
+                <List>
+                  {friendsList}
+                </List>
+              </Card.Description>
+            </Card.Content>
           </Card>
       </div>
     );

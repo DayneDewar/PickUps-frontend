@@ -21,6 +21,7 @@ function GameDetails({ game, user, host }) {
                 {player.firstname} {player.lastname} - Rating: {player.rating}
                 <Button  id="like" value={player.id} onClick={handleRating}>👍🏾</Button>
                 <Button id="dislike" value={player.id} onClick={handleRating}>👎🏾</Button>
+                <Button id="frined" value={player.id} onClick={addPlayerAsFriend}> Add as Friend </Button>
             </List.Item>
         )
     })
@@ -61,6 +62,26 @@ function GameDetails({ game, user, host }) {
             .then(r => r.json())
             .then(data => renderReview(data))
         }
+    }
+
+    function addPlayerAsFriend(e) {
+        e.preventDefault();
+
+        const newFriend = {
+            friend_one: user.id,
+            friend_two: e.target.value
+        }
+
+        fetch(`http://localhost:3000/friendships`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(newFriend)
+        })
+        .then(r => r.json())
+        .then(data => alert('You are now friends'))
+
     }
 
     function updateData(data) {
