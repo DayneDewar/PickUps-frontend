@@ -9,6 +9,9 @@ function NavBar({ user, setUser }) {
     history.push("/")
     setUser(null)
   }
+
+  function requests() {}
+
     return (
         <Menu color="purple">
           <Menu.Item>
@@ -26,6 +29,11 @@ function NavBar({ user, setUser }) {
               <NavLink color="green" basic icon className="navlinks" id="nav-account" to='/MyProfile'>
                 <Icon name="user"></Icon>
                 Account</NavLink>
+            </Menu.Item>
+            <Menu.Item>
+              <Button baic icon onClick={requests}>
+                Requests
+              </Button>
             </Menu.Item>
             <Menu.Item >
               <Button color="red" basic icon onClick={logout}>
