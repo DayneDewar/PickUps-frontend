@@ -1,70 +1,36 @@
-# Getting Started with Create React App
+# PickUps
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+PickUps is a Web Application built with the intention for a users to create their own account and join in our host their own PickUp games around New York City.
 
-## Available Scripts
+## Getting started
 
-In the project directory, you can run:
+In the project directory, you can download all the packages and run the application with:
 
-### `yarn start`
+`npm install && npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+If your browser doesn't open automatically, go to [http://localhost:3001](http://localhost:3001) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
 
-### `yarn test`
+## Home
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+![home](https://user-images.githubusercontent.com/76142052/121751586-733e2300-cadc-11eb-81ef-1c3769c056fc.gif)
 
-### `yarn build`
+On the Home screen, You are presented with a few of the popular sports that have either been created by other Users or already establish by in the database. The navigation bar at the top should show you a few options, however after creating an account or signing in, you are given the option to add your own sport and view your profile.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Create A Sport
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+![sports-screen](https://user-images.githubusercontent.com/76142052/121751620-89e47a00-cadc-11eb-95eb-a93c2febd512.gif)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+After logging in, You are allowed to add a sport of your own (traditional or original) that has not already been created. Doing so not only allows you and other users to now create events with the sport but also adds it to your favorite sports list on your profile page.
 
-### `yarn eject`
+## PickUp Games
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+![Create-event](https://user-images.githubusercontent.com/76142052/121751640-9072f180-cadc-11eb-9caf-261bcb7c6980.gif)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+The event page is used for creating your own event and hosting it at any location at any time/date. You can also sign up for games that are are hosted by other users. If you are a host you can change the location if need be or cancel the event. If you are just joining one you are only able to remove yourself from the event.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+![delete-event](https://user-images.githubusercontent.com/76142052/121751656-97016900-cadc-11eb-81c5-1cf40e1e168d.gif)
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
