@@ -68,9 +68,8 @@ function GameDetails({ game, user, host }) {
         e.preventDefault();
 
         const newFriend = {
-            friend_one: user.id,
-            friend_two: e.target.value,
-            status: "pending"
+            user_id: user.id,
+            friend_id: e.target.value
         }
 
         fetch(`http://localhost:3000/friendships`, {

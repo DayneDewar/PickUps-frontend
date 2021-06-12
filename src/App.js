@@ -17,23 +17,24 @@ function App() {
 
   const dispatch = useDispatch();
   const [user, setUser] = useState(null);
-
-  useEffect(() => {
-      fetch('http://localhost:3000/sports')
+  const [pendingRequests, setPendingRequests] = useState([])
+  
+  function fetchSports() {
+      fetch('https://calm-bayou-84971.herokuapp.com/sports')
       .then(r => r.json())
       .then(data => dispatch(overrideSports(data)))
-  }, [])
+  }
 
-  useEffect(() => {
-    fetch('http://localhost:3000/events')
+  function fetchEvents() {
+    fetch('https://calm-bayou-84971.herokuapp.com/events')
       .then(r => r.json())
       .then(data => dispatch(overrideGames(data)))
-  }, [])
+  }
 
   useEffect(() => {
     const token = localStorage.getItem("token");
 
-    fetch('http://localhost:3000/me', {
+    fetch('https://calm-bayou-84971.herokuapp.com/me', {
       headers: {
         Authorization: `Bearer ${token}`,
       }
@@ -47,14 +48,20 @@ function App() {
           }
         })
       })
-      .then(data => setUser(data))
+      .then(data => {
+        setUser(data)
+        setPendingRequests(data.pending_friends)
+      })
       .catch(error => console.log(error))
+
+      fetchSports()
+      fetchEvents()
   }, [])
 
   return (
     <div>
       <HeaderComponent />
-      <NavBar user={user} setUser={setUser} />
+      <NavBar user={user} setUser={setUser} pending={pendingRequests} />
       <Switch>
         <Route exact path="/">
           <AllSports user={user} />

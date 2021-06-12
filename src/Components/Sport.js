@@ -13,7 +13,7 @@ function Sport({ name, equipment, image="../default_sport.jpg", rules, id, user 
       sport_id: id
     }
 
-    fetch('http://localhost:3000/favorite_sports', {
+    fetch('https://calm-bayou-84971.herokuapp.com/favorite_sports', {
       method: "POST",
       headers: {
         "Content-Type": "application/json"

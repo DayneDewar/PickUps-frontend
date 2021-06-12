@@ -28,7 +28,7 @@ function NewGameForm({ user }) {
             user_id: user.id
         }
 
-        fetch('http://localhost:3000/events', {
+        fetch('https://calm-bayou-84971.herokuapp.com/events', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

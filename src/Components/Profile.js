@@ -6,13 +6,14 @@ function Profile({ user, setUser }) {
 
   const history = useHistory()
   const [favSportsArr, setFavSportsArr] = useState([]);
+  const [activeFriends, setActiveFriends] = useState([]);
   const [bio, setBio] = useState("");
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
 
  useEffect(() => {
     const token = localStorage.getItem("token");
 
-    fetch('http://localhost:3000/me', {
+    fetch('https://calm-bayou-84971.herokuapp.com/me', {
       headers: {
         Authorization: `Bearer ${token}`,
       }
@@ -29,6 +30,7 @@ function Profile({ user, setUser }) {
       .then(data => {
         setUser(data)
         setFavSportsArr(data.favorite_sports)
+        setActiveFriends(data.active_friends)
       })
       .catch(error => console.log(error))
     }, [])
@@ -41,14 +43,13 @@ function Profile({ user, setUser }) {
     )
   })
 
-  const friendsList = user.friends?.map(friend => {
+  const friendsList = activeFriends?.map(friend => {
     return (
       <List.Item key={friend.id}>
         {friend.firstname} {friend.lastname}
       </List.Item>
     )
   })
-
   function handleBioChange(e) {
     setBio(e.target.value)
   }
@@ -62,7 +63,7 @@ function Profile({ user, setUser }) {
     e.preventDefault();
 
     const token = localStorage.getItem("token");
-    fetch('http://localhost:3000/me', {
+    fetch('https://calm-bayou-84971.herokuapp.com/me', {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
@@ -80,7 +81,7 @@ function Profile({ user, setUser }) {
   function removeFavorite(e) {
     e.preventDefault();
 
-    fetch(`http://localhost:3000/favorite_sports/${e.target.value}`, {
+    fetch(`https://calm-bayou-84971.herokuapp.com/favorite_sports/${e.target.value}`, {
       method: "DELETE",
   })
     .then(r => r.json())
@@ -91,7 +92,7 @@ function Profile({ user, setUser }) {
     history.push("/")
     e.preventDefault();
 
-    fetch(`http://localhost:3000/users/${user.id}`, {
+    fetch(`https://calm-bayou-84971.herokuapp.com/users/${user.id}`, {
       method: "DELETE",
      })
     .then(r => r.json())

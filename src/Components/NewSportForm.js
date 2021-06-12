@@ -27,7 +27,7 @@ function NewSportForm({ user }) {
             user_id: user.id 
         }
 
-        fetch('http://localhost:3000/sports', {
+        fetch('https://calm-bayou-84971.herokuapp.com/sports', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
