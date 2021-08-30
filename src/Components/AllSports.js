@@ -22,8 +22,8 @@ function AllSports({ user }) {
     })
     return (
       <div >
-        <Header textAlign="centered" as="h2" >Find Your Favorite Sports</Header>
-         <Grid relaxed center columns={4} style={{position: "center" }} className="sport-container">
+        <Header textAlign="center" as="h2" >Find Your Favorite Sports</Header>
+         <Grid relaxed center="true" columns={4} style={{position: "center" }} className="sport-container">
           {sportArray}
         </Grid>
       </div>

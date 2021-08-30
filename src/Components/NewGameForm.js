@@ -19,7 +19,7 @@ function NewGameForm({ user }) {
 
     function handleSubmit(e) {
         e.preventDefault();
-
+        console.log(location)
         const newGame = {
             location,
             equipment,
@@ -28,7 +28,7 @@ function NewGameForm({ user }) {
             user_id: user.id
         }
 
-        fetch('https://calm-bayou-84971.herokuapp.com/events', {
+        fetch('http://localhost:3000/events', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -56,7 +56,7 @@ function NewGameForm({ user }) {
             <Form.Field>
             <Form.Input style={{width: "10vw"}} type="text" name="location" onChange={(e) => setLocation(e.target.value)} value={location} placeholder="location" />
             </Form.Field>
-            <Form.Field control={Checkbox} label={{ children: 'Do You Have The Equipment?'}} onChange={(e) => setEquipment(!equipment)} value={equipment} />
+            <Form.Field control={Checkbox} label={{ children: 'Do You Have The Equipment?'}} onChange={(e) => setEquipment(!equipment)}/>
             <Form.Field style={{width: "14vw"}}>
             <DatePicker 
             selected={datetime} 

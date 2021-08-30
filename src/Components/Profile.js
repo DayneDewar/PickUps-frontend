@@ -13,7 +13,7 @@ function Profile({ user, setUser }) {
  useEffect(() => {
     const token = localStorage.getItem("token");
 
-    fetch('https://calm-bayou-84971.herokuapp.com/me', {
+    fetch('http://localhost:3000/me', {
       headers: {
         Authorization: `Bearer ${token}`,
       }
@@ -63,7 +63,7 @@ function Profile({ user, setUser }) {
     e.preventDefault();
 
     const token = localStorage.getItem("token");
-    fetch('https://calm-bayou-84971.herokuapp.com/me', {
+    fetch('http://localhost:3000/me', {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
@@ -81,7 +81,7 @@ function Profile({ user, setUser }) {
   function removeFavorite(e) {
     e.preventDefault();
 
-    fetch(`https://calm-bayou-84971.herokuapp.com/favorite_sports/${e.target.value}`, {
+    fetch(`http://localhost:3000/favorite_sports/${e.target.value}`, {
       method: "DELETE",
   })
     .then(r => r.json())
@@ -92,7 +92,7 @@ function Profile({ user, setUser }) {
     history.push("/")
     e.preventDefault();
 
-    fetch(`https://calm-bayou-84971.herokuapp.com/users/${user.id}`, {
+    fetch(`http://localhost:3000/users/${user.id}`, {
       method: "DELETE",
      })
     .then(r => r.json())

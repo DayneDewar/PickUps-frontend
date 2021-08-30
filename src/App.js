@@ -20,13 +20,13 @@ function App() {
   const [pendingRequests, setPendingRequests] = useState([])
   
   function fetchSports() {
-      fetch('https://calm-bayou-84971.herokuapp.com/sports')
+      fetch('http://localhost:3000/sports')
       .then(r => r.json())
       .then(data => dispatch(overrideSports(data)))
   }
 
   function fetchEvents() {
-    fetch('https://calm-bayou-84971.herokuapp.com/events')
+    fetch('http://localhost:3000/events')
       .then(r => r.json())
       .then(data => dispatch(overrideGames(data)))
   }
@@ -34,7 +34,7 @@ function App() {
   useEffect(() => {
     const token = localStorage.getItem("token");
 
-    fetch('https://calm-bayou-84971.herokuapp.com/me', {
+    fetch('http://localhost:3000/me', {
       headers: {
         Authorization: `Bearer ${token}`,
       }

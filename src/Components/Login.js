@@ -17,7 +17,7 @@ function Login({ setUser }) {
             password
         }
 
-        fetch('https://calm-bayou-84971.herokuapp.com/login', {
+        fetch('hhttp://localhost:3000/login', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

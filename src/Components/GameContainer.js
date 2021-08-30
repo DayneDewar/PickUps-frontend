@@ -8,21 +8,21 @@ import NewGameForm from "./NewGameForm";
 function GameContainer({ user }) {
     // const [allGames, setAllGames] = useState([]);
     const dispatch = useDispatch();
-    const [filter, setFilter] = useState(false);
+    // const [filter, setFilter] = useState(false);
     const allGames = useSelector(storeState => storeState.games);
     
     // useEffect(() => {
       
     // }, [])
 
-    const filtered = allGames.filter(game => {
-      if (filter) {
-        return game.users[0].id === user.id
-      }
-      else {
-        return game
-      }
-    })
+    // const filtered = allGames.filter(game => {
+    //   if (filter) {
+    //     return game.users[0].id === user.id
+    //   }
+    //   else {
+    //     return game
+    //   }
+    // })
 
     const everyGame = allGames.map(game => {
         return (

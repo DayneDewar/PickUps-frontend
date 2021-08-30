@@ -25,7 +25,7 @@ function Signup({ setUser }) {
             rating: 5
         }
 
-        fetch('https://calm-bayou-84971.herokuapp.com/signup', {
+        fetch('http://localhost:3000/signup', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

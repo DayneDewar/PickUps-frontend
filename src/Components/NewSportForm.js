@@ -27,7 +27,7 @@ function NewSportForm({ user }) {
             user_id: user.id 
         }
 
-        fetch('https://calm-bayou-84971.herokuapp.com/sports', {
+        fetch('http://localhost:3000/sports', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -52,7 +52,7 @@ function NewSportForm({ user }) {
             <Form.Input  style={{ }} type="text" name="name" onChange={(e) => setName(e.target.value)} value={name} placeholder="Name" />
             <Form.Input  type="text" name="equipment" onChange={(e) => setEquipment(e.target.value)} value={equipment} placeholder="Equipment" />
             </Form.Group>
-            <Form.Input  width type="text" name="image" onChange={(e) => setImage(e.target.value)} value={image} placeholder="Insert Picture of Sport" />
+            <Form.Input  type="text" name="image" onChange={(e) => setImage(e.target.value)} value={image} placeholder="Insert Picture of Sport" />
             <Form.Input  height={6} type="textArea" name="rules" onChange={(e) => setRules(e.target.value)} value={rules} placeholder="Brief explanation of the rules" />
             <Button type="submit">Create New Sport</Button>
         </Form>

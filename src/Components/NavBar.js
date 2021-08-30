@@ -12,13 +12,13 @@ function NavBar({ user, setUser, pending }) {
   }
 
   // setTimeout(function() {console.log(user.pending_friends)}, 3000)
-  const friendNotifications = pending?.map( friend => {
-    return (
-      <Dropdown.Item key={friend.id} onClick> 
-        {friend.firstname} {friend.lastname} has sent you a friend request!
-      </Dropdown.Item>
-    )
-  })
+  // const friendNotifications = pending?.map( friend => {
+  //   return (
+  //     <Dropdown.Item key={friend.id} onClick> 
+  //       {friend.firstname} {friend.lastname} has sent you a friend request!
+  //     </Dropdown.Item>
+  //   )
+  // })
   
 
     return (
@@ -35,7 +35,7 @@ function NavBar({ user, setUser, pending }) {
               <NavLink className="navlinks" to='/NewSport'>Make A New Sport</NavLink>
             </Menu.Item>
             <Menu.Item position="right">
-              <NavLink color="green" basic icon className="navlinks" id="nav-account" to='/MyProfile'>
+              <NavLink color="green" basic='true' icon='true' className="navlinks" id="nav-account" to='/MyProfile'>
                 <Icon name="user"></Icon>
                 Account</NavLink>
             </Menu.Item>
@@ -59,7 +59,7 @@ function NavBar({ user, setUser, pending }) {
           ) : (
             <>
               <Menu.Item position="right">
-                <NavLink color="green" basic icon className="navlinks" id="nav-login" to='/Login'>Login</NavLink>
+                <NavLink color="green" basic='true' icon='true' className="navlinks" id="nav-login" to='/Login'>Login</NavLink>
               </Menu.Item>
               <Menu.Item >
                 <NavLink className="navlinks" id="nav-signup" to='/Signup'>SignUp</NavLink>

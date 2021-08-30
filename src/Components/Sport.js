@@ -13,7 +13,7 @@ function Sport({ name, equipment, image="../default_sport.jpg", rules, id, user 
       sport_id: id
     }
 
-    fetch('https://calm-bayou-84971.herokuapp.com/favorite_sports', {
+    fetch('http://localhost:3000/favorite_sports', {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -36,7 +36,7 @@ function Sport({ name, equipment, image="../default_sport.jpg", rules, id, user 
               {equipment} 
            </Card.Description>
            <Divider />
-            <Card.Description style={{height: "150px", overflow: "auto"}} extra>
+            <Card.Description style={{height: "150px", overflow: "auto"}} extra="true">
               <Card.Header style={{width: "fitcontent", top: "-10px"}} as="h5">Rules:</Card.Header>
               {rules}
             </Card.Description>

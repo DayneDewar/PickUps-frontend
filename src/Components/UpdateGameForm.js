@@ -14,7 +14,7 @@ function UpdateGameForm({ game, updateData }) {
             location: newLocation
         }
 
-        fetch(`https://calm-bayou-84971.herokuapp.com/events/${game.id}`, {
+        fetch(`http://localhost:3000/events/${game.id}`, {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json"
