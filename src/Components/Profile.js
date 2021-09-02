@@ -32,7 +32,7 @@ function Profile({ user, setUser }) {
         setActiveFriends(data.accepted_friends)
       })
       .catch(error => console.log(error))
-    }, [user])
+    }, [])
 
   const userSports = favSportsArr?.map(favSport => {
     return ( 
@@ -44,9 +44,16 @@ function Profile({ user, setUser }) {
 
   const friendsList = activeFriends?.map(friend => {
     return (
-      <List.Item key={friend.id}>
-        {friend.firstname} {friend.lastname}
-      </List.Item>
+      <Card>
+        <Card.Content>
+          <Card.Header>{friend.firstname} {friend.lastname}</Card.Header>
+          <Card.Meta>{friend.location}</Card.Meta>
+          <Card.Meta>{friend.age}</Card.Meta>
+          <Card.Description>
+            {friend.bio}
+          </Card.Description>
+        </Card.Content>
+      </Card>
     )
   })
   function handleBioChange(e) {
@@ -100,7 +107,7 @@ function Profile({ user, setUser }) {
     })
   }
     return (
-      <div >
+      <div id='profile'>
         <Card style={{ width: "40vw", textAlign: "center", margin: "auto"}} >
         <Card.Content>
           <Card.Header style={{textAlign: "center"}} as="h1">Profile Info</Card.Header>
@@ -136,20 +143,13 @@ function Profile({ user, setUser }) {
             </Confirm>
           </div>
           </Card.Content>
-          </Card>
-          <Card style={{ width: "15vw", textAlign: "center", margin: "auto", }} >
-            <Card.Content>
-              <Card.Header>Friends List</Card.Header>
-              <Card.Description>
-                <List>
-                  {friendsList}
-                </List>
-              </Card.Description>
-            </Card.Content>
-          </Card>
+        </Card>
+        <h2 > Friends List </h2>
+        <Card.Group>
+          {friendsList}
+        </Card.Group>
       </div>
     );
 }
  
 export default Profile;
-  

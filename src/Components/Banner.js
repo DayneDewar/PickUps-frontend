@@ -1,4 +1,4 @@
-import { Header, Image } from "semantic-ui-react";
+import { Image } from "semantic-ui-react";
 
 function Banner({ sports }) {
     return (

@@ -1,11 +1,19 @@
 import { useSelector } from "react-redux";
 import Sport from "./Sport";
-import { Grid, Header } from 'semantic-ui-react';
+import { Grid, Segment, Divider, Input, Header } from 'semantic-ui-react';
+import NewSportForm from "./NewSportForm";
+import { useState } from "react";
 
 
 function AllSports({ user }) {
     const sports = useSelector(storeState => storeState.sports);
-    const sportArray = sports.map((sport, index) => {
+    const [search, setSearch] = useState('')
+
+    const searchedSports = sports.filter(sport => {
+      return sport.name.toLowerCase().includes(search.toLowerCase())
+    }) 
+
+    const sportArray = searchedSports.map((sport, index) => {
         return (
             <Grid.Column key={index}>
               <Sport 
@@ -22,7 +30,18 @@ function AllSports({ user }) {
     })
     return (
       <div className='sports-container'>
-        <Header textAlign="center" as="h2" >Find Your Favorite Sports</Header>
+          <Segment style={{width: "50vw", margin:"auto", backgroundColor: "silver", marginBottom: '1vw', marginTop: '1vw'}} >
+            <Grid columns={2} relaxed='very' stackable>
+              <Grid.Column verticalAlign='middle'>
+                <Header>Search For A Sport</Header>
+                <Input fluid icon='search' placeholder='Search...' onChange={(e) => setSearch(e.target.value)} value={search}/>
+              </Grid.Column>
+              <Grid.Column>
+                <NewSportForm />
+              </Grid.Column>
+            </Grid>
+            <Divider vertical>Or</Divider>
+        </Segment>
         <Grid doubling centered center="true" columns={5}>
           {sportArray}
         </Grid>

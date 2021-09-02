@@ -21,7 +21,6 @@ function App() {
   const [pendingRequests, setPendingRequests] = useState([])
 
   useEffect(() => {
-    
       fetch('http://localhost:3000/sports')
       .then(r => r.json())
       .then(data => dispatch(overrideSports(data)))
@@ -29,8 +28,8 @@ function App() {
 
   useEffect(() => {
       fetch('http://localhost:3000/events')
-        .then(r => r.json())
-        .then(data => dispatch(overrideGames(data)))
+      .then(r => r.json())
+      .then(data => dispatch(overrideGames(data)))
   }, [])
 
   useEffect(() => {
@@ -52,7 +51,6 @@ function App() {
       })
       .then(data => {
         setUser(data)
-        setPendingRequests(data.friend_requests)
       })
       .catch(error => console.log(error))
       // fetchSports()
@@ -65,7 +63,7 @@ function App() {
       <NavBar user={user} setUser={setUser} pending={pendingRequests} setPending={setPendingRequests} />
       <Switch>
         <Route exact path="/">
-          <Banner />
+          {/* <Banner /> */}
           <AllSports user={user} />
         </Route>
         <Route exact path="/MyProfile">

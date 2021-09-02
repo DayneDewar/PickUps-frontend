@@ -2,7 +2,7 @@ import { NavLink, useHistory } from "react-router-dom";
 import { Menu, Button, Icon, Dropdown } from "semantic-ui-react";
 import Notifications from "./Notifications";
 
-function NavBar({ user, setUser, pending, setPending }) {
+function NavBar({ user, setUser }) {
   const history = useHistory();
 
   function logout() {
@@ -20,18 +20,14 @@ function NavBar({ user, setUser, pending, setPending }) {
             <NavLink className="navlinks" to='/Games'>PickUp Games</NavLink>
           </Menu.Item>
           <Menu.Item >
-              <Dropdown icon='bell blue'>
-                <Dropdown.Menu>
-                  <Notifications user={user} pending={pending} setPending={setPending}/>
+              <Dropdown icon='bell blue' floating>
+                <Dropdown.Menu >
+                  <Notifications user={user} />
                 </Dropdown.Menu>
               </Dropdown>
             </Menu.Item>
           { user ? (
             <>
-            <Menu.Item>
-              <NavLink className="navlinks" to='/NewSport'>Make A New Sport</NavLink>
-            </Menu.Item>
-
             <Menu.Item position='right'>
               <NavLink color="green" basic='true' icon='true' className="navlinks" id="nav-account" to='/MyProfile'>
                 <Icon name="user"></Icon>

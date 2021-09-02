@@ -1,6 +1,31 @@
+import { useEffect, useState } from "react";
 import { Dropdown, Button } from "semantic-ui-react";
 
-function Notifications({ user, pending, setPending}) {
+function Notifications({ user }) {
+  const [pending, setPending] = useState([])
+
+  useEffect(()=>{
+    const token = localStorage.getItem("token");
+
+    fetch('http://localhost:3000/me', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      }
+    })
+      .then(r => {
+        return r.json().then(data => {
+          if (r.ok) {
+            return data
+          } else {
+            throw data
+          }
+        })
+      })
+      .then(data => {
+        setPending(data.friend_requests)
+      })
+      .catch(error => console.log(error))
+  },[])
 
   function handleRequest(e) {
     e.preventDefault()
@@ -46,8 +71,8 @@ function Notifications({ user, pending, setPending}) {
 
   const friendNotifications = pending?.map(friend => {
     return (
-      <Dropdown.Item key={friend.id}>
-        {friend.firstname} {friend.lastname} has sent you a friend request!
+      <Dropdown.Item key={friend.id} style={{margin: 'auto', textAlign: 'center'}}>
+        <p> {friend.firstname} {friend.lastname} has sent you a friend request!</p>
         <Button id='approve' value={friend.id} onClick={handleRequest}>
             Approve
         </Button>

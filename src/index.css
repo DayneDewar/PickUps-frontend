@@ -36,6 +36,12 @@ code {
   padding-left: 2.5rem;
   padding-right: 2.5rem;
 }
+
+#signup-form {
+  width: 25vw;
+  height: 25vw;
+  margin: auto;
+}
 /* 
 #nav-bar {
   float: left;
