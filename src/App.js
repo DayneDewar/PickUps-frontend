@@ -8,6 +8,7 @@ import NewSportForm from './Components/NewSportForm';
 import Profile from './Components/Profile';
 import Signup from './Components/Signup';
 import Login from './Components/Login';
+import Banner from './Components/Banner'
 import { useDispatch } from 'react-redux';
 import { overrideSports } from './Redux/sportsSlice';
 import { overrideGames } from './Redux/gamesSlice';
@@ -18,18 +19,19 @@ function App() {
   const dispatch = useDispatch();
   const [user, setUser] = useState(null);
   const [pendingRequests, setPendingRequests] = useState([])
-  
-  function fetchSports() {
+
+  useEffect(() => {
+    
       fetch('http://localhost:3000/sports')
       .then(r => r.json())
       .then(data => dispatch(overrideSports(data)))
-  }
+  }, [])
 
-  function fetchEvents() {
-    fetch('http://localhost:3000/events')
-      .then(r => r.json())
-      .then(data => dispatch(overrideGames(data)))
-  }
+  useEffect(() => {
+      fetch('http://localhost:3000/events')
+        .then(r => r.json())
+        .then(data => dispatch(overrideGames(data)))
+  }, [])
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -50,20 +52,20 @@ function App() {
       })
       .then(data => {
         setUser(data)
-        setPendingRequests(data.pending_friends)
+        setPendingRequests(data.friend_requests)
       })
       .catch(error => console.log(error))
-
-      fetchSports()
-      fetchEvents()
+      // fetchSports()
+      // fetchEvents()
   }, [])
 
   return (
-    <div>
+    <div id="container">
       <HeaderComponent />
-      <NavBar user={user} setUser={setUser} pending={pendingRequests} />
+      <NavBar user={user} setUser={setUser} pending={pendingRequests} setPending={setPendingRequests} />
       <Switch>
         <Route exact path="/">
+          <Banner />
           <AllSports user={user} />
         </Route>
         <Route exact path="/MyProfile">

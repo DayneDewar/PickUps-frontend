@@ -1,10 +1,8 @@
 import { useState } from "react";
-import { Card, Icon, Image, Button, CardContent, CardHeader, Popup, Header, Divider } from 'semantic-ui-react'
+import { Card, Button, Popup, Divider } from 'semantic-ui-react'
 
 function Sport({ name, equipment, image="../default_sport.jpg", rules, id, user }) {
-  
-  const [active, setActive] = useState(false);
-
+  const [active, setActive] = useState(true)
   function addSport(e) {
     e.preventDefault();
 
@@ -25,13 +23,13 @@ function Sport({ name, equipment, image="../default_sport.jpg", rules, id, user 
   }
 
     return (
-        <Card style={{height: "480px", paddingRight: "0px"}}>
+        <Card className='sport-card'>
          <img src={image} alt={name} height="195px"/>
          <Card.Content>
            <Card.Header textAlign="center">{name}</Card.Header>
            <Card.Description >
             <Card.Header style={{width: "fitcontent", top: "-10px"}} as="h4">
-            <Popup content="Add To Favorite Sports" trigger={<Button style={{top: "-1230px"}} color="green" inverted floated="right" onClick={addSport} content="+" />}></Popup>
+            <Popup content="Add To Favorite Sports" trigger={<Button style={{top: "-1230px"}} floated="right" onClick={addSport} icon="add" />} />
               Equipment:</Card.Header>
               {equipment} 
            </Card.Description>
@@ -43,8 +41,6 @@ function Sport({ name, equipment, image="../default_sport.jpg", rules, id, user 
           </Card.Content>
         </Card>
     );
-}<div class="ui icon button" data-content="Add users to your feed">
-<i class="add icon"></i>
-</div>
+}
   
 export default Sport;

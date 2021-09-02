@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
-import { Button, Form, Label } from "semantic-ui-react";
+import { Button, Form } from "semantic-ui-react";
 import { addSport } from "../Redux/sportsSlice";
 
 function NewSportForm({ user }) {
@@ -13,7 +13,6 @@ function NewSportForm({ user }) {
     const [image, setImage] = useState("");
     const [rules, setRules] = useState("");
     const [load, setLoad] = useState(false);
-    const [error, setError] = useState(false);
 
     function handleSubmit(e) {
         e.preventDefault()

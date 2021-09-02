@@ -3,7 +3,7 @@ import { useState } from "react"
 import Map from "./Map"
 import { useDispatch } from "react-redux"
 import { removeGame, updateGamePlayers, addGamePlayers, removeGamePlayers } from "../Redux/gamesSlice";
-import { Modal, Button, Header, List, Popup } from "semantic-ui-react";
+import { Modal, Button, Header, List } from "semantic-ui-react";
 
 function GameDetails({ game, user, host }) {
     
@@ -19,7 +19,7 @@ function GameDetails({ game, user, host }) {
             <List.Item key={player.id}>
                 {/* { host ? <p>[HOST]</p> : null } */}
                 {player.firstname} {player.lastname} - Rating: {player.rating}
-                <Button  id="like" value={player.id} onClick={handleRating}>👍🏾</Button>
+                <Button id="like" value={player.id} onClick={handleRating}>👍🏾</Button>
                 <Button id="dislike" value={player.id} onClick={handleRating}>👎🏾</Button>
                 {player.id === user.id ? null : <Button id="frined" value={player.id} onClick={addPlayerAsFriend}> Add as Friend </Button>}
             </List.Item>
@@ -69,10 +69,10 @@ function GameDetails({ game, user, host }) {
 
         const newFriend = {
             user_id: user.id,
-            friend_id: e.target.value
+            added_user_id: e.target.value
         }
 
-        fetch(`http://localhost:3000/friendships`, {
+        fetch(`http://localhost:3000/add_friend`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -80,8 +80,7 @@ function GameDetails({ game, user, host }) {
             body: JSON.stringify(newFriend)
         })
         .then(r => r.json())
-        .then(data => alert('You are now friends'))
-
+        .then(data => alert('You just added a friend'))
     }
 
     function updateData(data) {

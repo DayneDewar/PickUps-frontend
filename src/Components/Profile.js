@@ -28,12 +28,11 @@ function Profile({ user, setUser }) {
         })
       })
       .then(data => {
-        setUser(data)
         setFavSportsArr(data.favorite_sports)
-        setActiveFriends(data.active_friends)
+        setActiveFriends(data.accepted_friends)
       })
       .catch(error => console.log(error))
-    }, [])
+    }, [user])
 
   const userSports = favSportsArr?.map(favSport => {
     return ( 

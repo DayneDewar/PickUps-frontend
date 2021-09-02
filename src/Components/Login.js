@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useHistory } from "react-router";
-import { Button, Checkbox, Form, FormField } from 'semantic-ui-react';
+import { Button, Form, FormField } from 'semantic-ui-react';
 
 function Login({ setUser }) {
     
@@ -10,14 +10,12 @@ function Login({ setUser }) {
     const [errors, setErrors] = useState([]);
 
     function handleSubmit(e) {
-        e.preventDefault();
-
         const newLogin = {
             username,
             password
         }
 
-        fetch('hhttp://localhost:3000/login', {
+        fetch('http://localhost:3000/login', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -37,7 +35,7 @@ function Login({ setUser }) {
             const { user, token } = data
             localStorage.setItem("token", token)
             setUser(user)
-            history.push("/MyProfile")
+            history.push("/")
         })
         .catch(error => {
             setErrors(error.errors)

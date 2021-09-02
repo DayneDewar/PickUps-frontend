@@ -1,16 +1,13 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Card, Header } from "semantic-ui-react";
-import { addGame } from "../Redux/gamesSlice";
+import { useSelector } from "react-redux";
+import { Card } from "semantic-ui-react";
 import Game from "./Game";
 import NewGameForm from "./NewGameForm";
 
 function GameContainer({ user }) {
     // const [allGames, setAllGames] = useState([]);
-    const dispatch = useDispatch();
     // const [filter, setFilter] = useState(false);
     const allGames = useSelector(storeState => storeState.games);
-    
+    console.log(allGames, user)
     // useEffect(() => {
       
     // }, [])
@@ -38,8 +35,8 @@ function GameContainer({ user }) {
     return (
       <div className="game-container" style={{textAlign: "center"}}>
         <NewGameForm user={user} />
-        <Card.Group itemsPerRow={4} style={{magrin: "auto", width: "101vw", overflow: "auto", paddingLeft: "1vw", paddingTop: "1.5vw"}}>
-        {everyGame}
+        <Card.Group centered itemsPerRow={4} style={{magrin: "auto", overflow: "auto", paddingTop: "1rem"}}>
+          {everyGame}
         </Card.Group>
       </div>
     );

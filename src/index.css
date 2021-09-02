@@ -31,6 +31,11 @@ code {
   height: 20.5vw;
   float: right;
 }
+
+.sports-container {
+  padding-left: 2.5rem;
+  padding-right: 2.5rem;
+}
 /* 
 #nav-bar {
   float: left;
