@@ -45,16 +45,16 @@ function NewSportForm({ user }) {
     }
     return (
         <div style={{margin: 'auto'}}>
-        <Form onSubmit={handleSubmit} loading={load} style={{textAlign: "center", margin: "auto"}}>
-            <Header> Create A New Sport </Header>
-            <Form.Group >
-            <Form.Input width={8} type="text" name="name" onChange={(e) => setName(e.target.value)} value={name} placeholder="Name" />
-            <Form.Input  width={8} type="text" name="equipment" onChange={(e) => setEquipment(e.target.value)} value={equipment} placeholder="Equipment" />
-            </Form.Group>
-            <Form.Input  type="text" name="image" onChange={(e) => setImage(e.target.value)} value={image} placeholder="Insert Picture of Sport" />
-            <Form.Input  type="textArea" name="rules" onChange={(e) => setRules(e.target.value)} value={rules} placeholder="Brief explanation of the rules" />
-            <Button type="submit">Create New Sport</Button>
-        </Form>
+            <Form onSubmit={handleSubmit} loading={load} style={{textAlign: "center", margin: "auto"}}>
+                <Header> Create A New Sport </Header>
+                <Form.Group >
+                <Form.Input width={8} type="text" name="name" onChange={(e) => setName(e.target.value)} value={name} placeholder="Name" />
+                <Form.Input  width={8} type="text" name="equipment" onChange={(e) => setEquipment(e.target.value)} value={equipment} placeholder="Equipment" />
+                </Form.Group>
+                <Form.Input  type="text" name="image" onChange={(e) => setImage(e.target.value)} value={image} placeholder="Insert Picture of Sport" />
+                <Form.Input  type="textArea" name="rules" onChange={(e) => setRules(e.target.value)} value={rules} placeholder="Brief explanation of the rules" />
+                <Button type="submit">Create New Sport</Button>
+            </Form>
         </div>
     );
 }

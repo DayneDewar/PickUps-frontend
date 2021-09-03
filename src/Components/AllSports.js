@@ -1,8 +1,9 @@
 import { useSelector } from "react-redux";
 import Sport from "./Sport";
-import { Grid, Segment, Divider, Input, Header } from 'semantic-ui-react';
+import { Grid, Segment, Divider, Input, Header, Button} from 'semantic-ui-react';
 import NewSportForm from "./NewSportForm";
 import { useState } from "react";
+import Login from "./Login";
 
 
 function AllSports({ user }) {
@@ -30,6 +31,7 @@ function AllSports({ user }) {
     })
     return (
       <div className='sports-container'>
+        { user ? (
           <Segment style={{width: "50vw", margin:"auto", backgroundColor: "silver", marginBottom: '1vw', marginTop: '1vw'}} >
             <Grid columns={2} relaxed='very' stackable>
               <Grid.Column verticalAlign='middle'>
@@ -42,6 +44,12 @@ function AllSports({ user }) {
             </Grid>
             <Divider vertical>Or</Divider>
         </Segment>
+        ):(
+          <Segment style={{width: "50vw", margin:"auto", backgroundColor: "silver", marginBottom: '1vw', marginTop: '1vw'}}>
+            <Header>Search For A Sport</Header>
+            <Input fluid icon='search' placeholder='Search...' onChange={(e) => setSearch(e.target.value)} value={search}/>
+          </Segment>
+      )}  
         <Grid doubling centered center="true" columns={5}>
           {sportArray}
         </Grid>

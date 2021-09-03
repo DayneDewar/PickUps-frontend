@@ -69,9 +69,6 @@ function App() {
         <Route exact path="/MyProfile">
           <Profile user={user} setUser={setUser} />
         </Route>
-        <Route exact path="/NewSport">
-          <NewSportForm user={user} />
-        </Route>
         <Route exact path="/Games">
           <GameContainer user={user} />
         </Route>

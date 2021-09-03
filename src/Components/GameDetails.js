@@ -9,7 +9,7 @@ function GameDetails({ game, user, host }) {
     
     const dispatch = useDispatch();
     const [open, setOpen] = useState(false)
-    const [signedUp, setSignedUp] = useState(user.events.some((event) => event.id === game.id) || host)
+    const [signedUp, setSignedUp] = useState(user?.events.some((event) => event.id === game.id) || host)
     const [newLati, setNewLati] = useState(game.lat);
     const [newLong, setNewLong] = useState(game.lng);
     const [playersArr, setPlayersArr] = useState(game.users);
@@ -17,11 +17,10 @@ function GameDetails({ game, user, host }) {
     const playersListing = playersArr.map((player) => {
         return (
             <List.Item key={player.id}>
-                {/* { host ? <p>[HOST]</p> : null } */}
                 {player.firstname} {player.lastname} - Rating: {player.rating}
                 <Button id="like" value={player.id} onClick={handleRating}>👍🏾</Button>
                 <Button id="dislike" value={player.id} onClick={handleRating}>👎🏾</Button>
-                {player.id === user.id ? null : <Button id="frined" value={player.id} onClick={addPlayerAsFriend}> Add as Friend </Button>}
+                {player.id === user?.id ? null : <Button id="frined" value={player.id} onClick={addPlayerAsFriend}> Add as Friend </Button>}
             </List.Item>
         )
     })
