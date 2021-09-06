@@ -27,7 +27,7 @@ function GameContainer({ user }) {
             key={game.id}
             game={game}
             user={user}
-            host={(game.users[0].id === user?.id)}
+            host={(game.users[0]?.id === user?.id)}
           />
         )
     })

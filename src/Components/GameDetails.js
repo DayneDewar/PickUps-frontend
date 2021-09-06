@@ -20,7 +20,7 @@ function GameDetails({ game, user, host }) {
                 {player.firstname} {player.lastname} - Rating: {player.rating}
                 <Button id="like" value={player.id} onClick={handleRating}>👍🏾</Button>
                 <Button id="dislike" value={player.id} onClick={handleRating}>👎🏾</Button>
-                {player.id === user?.id ? null : <Button id="frined" value={player.id} onClick={addPlayerAsFriend}> Add as Friend </Button>}
+                {player.id === user?.id ? null : <Button id="friend" value={player.id} onClick={addPlayerAsFriend}> Add as Friend </Button>}
             </List.Item>
         )
     })
@@ -83,7 +83,6 @@ function GameDetails({ game, user, host }) {
     }
 
     function updateData(data) {
-        // Update redux
         setNewLati(data.lat)
         setNewLong(data.lng)
     }
