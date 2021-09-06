@@ -46,7 +46,7 @@ export const gamesSlice = createSlice({
             console.log(action.payload)
             const gameId = parseInt(action.payload[0].id)
             const userId = parseInt(action.payload[1].id)
-            const newLike = {likes: action.payload[1].likes}
+            // const newLike = {likes: action.payload[1].likes}
             return state.map((game) => {
                 if (game.id === gameId) {
                     return produce(game, draftState => {

@@ -1,29 +1,56 @@
 import { useSelector } from "react-redux";
 import Sport from "./Sport";
-import { Grid, Image, Header } from 'semantic-ui-react';
+import { Grid, Segment, Divider, Input, Header, Button} from 'semantic-ui-react';
+import NewSportForm from "./NewSportForm";
+import { useState } from "react";
+import Login from "./Login";
 
 
 function AllSports({ user }) {
     const sports = useSelector(storeState => storeState.sports);
-    const sportArray = sports.map((sport, index) => {
+    const [search, setSearch] = useState('')
+
+    const searchedSports = sports.filter(sport => {
+      return sport.name.toLowerCase().includes(search.toLowerCase())
+    }) 
+
+    const sportArray = searchedSports.map((sport, index) => {
         return (
-            <Grid.Column key={index} style={{paddingLeft: "85px" }}>
-            <Sport 
-                key={sport.id}
-                name={sport.name}
-                equipment={sport.equipment}
-                image={sport.image}
-                rules= {sport.rules}
-                id={sport.id}
-                user={user}
-            />
+            <Grid.Column key={index}>
+              <Sport 
+                  key={sport.id}
+                  name={sport.name}
+                  equipment={sport.equipment}
+                  image={sport.image}
+                  rules= {sport.rules}
+                  id={sport.id}
+                  user={user}
+              />
             </Grid.Column>
         )
     })
     return (
-      <div >
-        <Header textAlign="center" as="h2" >Find Your Favorite Sports</Header>
-         <Grid relaxed center="true" columns={4} style={{position: "center" }} className="sport-container">
+      <div className='sports-container'>
+        { user ? (
+          <Segment style={{width: "50vw", margin:"auto", backgroundColor: "silver", marginBottom: '1vw', marginTop: '1vw'}} >
+            <Grid columns={2} relaxed='very' stackable>
+              <Grid.Column verticalAlign='middle'>
+                <Header>Search For A Sport</Header>
+                <Input fluid icon='search' placeholder='Search...' onChange={(e) => setSearch(e.target.value)} value={search}/>
+              </Grid.Column>
+              <Grid.Column>
+                <NewSportForm />
+              </Grid.Column>
+            </Grid>
+            <Divider vertical>Or</Divider>
+        </Segment>
+        ):(
+          <Segment style={{width: "50vw", margin:"auto", backgroundColor: "silver", marginBottom: '1vw', marginTop: '1vw'}}>
+            <Header>Search For A Sport</Header>
+            <Input fluid icon='search' placeholder='Search...' onChange={(e) => setSearch(e.target.value)} value={search}/>
+          </Segment>
+      )}  
+        <Grid doubling centered center="true" columns={5}>
           {sportArray}
         </Grid>
       </div>

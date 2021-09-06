@@ -1,8 +1,8 @@
-import { useState } from "react";
 import { NavLink, useHistory } from "react-router-dom";
-import { Menu, Image, Button, Icon, Dropdown } from "semantic-ui-react";
+import { Menu, Button, Icon, Dropdown } from "semantic-ui-react";
+import Notifications from "./Notifications";
 
-function NavBar({ user, setUser, pending }) {
+function NavBar({ user, setUser }) {
   const history = useHistory();
 
   function logout() {
@@ -11,44 +11,29 @@ function NavBar({ user, setUser, pending }) {
     setUser(null)
   }
 
-  // setTimeout(function() {console.log(user.pending_friends)}, 3000)
-  // const friendNotifications = pending?.map( friend => {
-  //   return (
-  //     <Dropdown.Item key={friend.id} onClick> 
-  //       {friend.firstname} {friend.lastname} has sent you a friend request!
-  //     </Dropdown.Item>
-  //   )
-  // })
-  
-
     return (
-        <Menu color="purple">
+        <Menu stackable style={{margin: '0rem'}}>
           <Menu.Item>
             <NavLink className="navlinks" to='/'>Home</NavLink>
           </Menu.Item>
           <Menu.Item>
             <NavLink className="navlinks" to='/Games'>PickUp Games</NavLink>
           </Menu.Item>
+          <Menu.Item >
+              <Dropdown icon='bell blue' floating>
+                <Dropdown.Menu >
+                  <Notifications user={user} />
+                </Dropdown.Menu>
+              </Dropdown>
+            </Menu.Item>
           { user ? (
             <>
-            <Menu.Item>
-              <NavLink className="navlinks" to='/NewSport'>Make A New Sport</NavLink>
-            </Menu.Item>
-            <Menu.Item position="right">
+            <Menu.Item position='right'>
               <NavLink color="green" basic='true' icon='true' className="navlinks" id="nav-account" to='/MyProfile'>
                 <Icon name="user"></Icon>
                 Account</NavLink>
             </Menu.Item>
-            {/* <Menu.Item>
-              <Button baic icon onClick={requests}>
-                Requests
-              </Button>
-            </Menu.Item> */}
-            {/* <Dropdown text="Notifications">
-              <Dropdown.Menu>
-                {friendNotifications}
-              </Dropdown.Menu>
-            </Dropdown> */}
+            
             <Menu.Item >
               <Button color="red" basic icon onClick={logout}>
                 <Icon name="log out"></Icon>

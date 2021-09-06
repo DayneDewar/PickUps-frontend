@@ -43,21 +43,21 @@ function NewGameForm({ user }) {
     }
 
     return (
-      <Segment style={{width: "50vw", margin:"auto", backgroundColor: "silver"}} >
-        <Form   onSubmit={handleSubmit} className="game-form" style={{width: "50vw", margin: "auto"}}>
-            <Header style={{height: "1vw", margin: "auto",color:"white", marginTop: ".5vw", paddingBottom: "2vw"}} as="h2">Host A PickUp Game</Header>
-            <Form.Group inline>
+      <Segment style={{width: "50vw", margin:"auto", backgroundColor: "silver", marginTop: '1vw'}} >
+        <Form onSubmit={handleSubmit} className="game-form" style={{margin: "auto"}}>
+            <Header as="h2">Host A PickUp Game</Header>
+            <Form.Group inline >
                 <Form.Field>
-            <select style={{width: "10vw"}} type="text" name="sports" onChange={(e) => setSportId(e.target.value)}>
+            <select  type="text" name="sports" onChange={(e) => setSportId(e.target.value)}>
                 <option value="0">Select A Sport</option>
                 {allSportsName}
             </select>
             </Form.Field>
             <Form.Field>
-            <Form.Input style={{width: "10vw"}} type="text" name="location" onChange={(e) => setLocation(e.target.value)} value={location} placeholder="location" />
+            <Form.Input  type="text" name="location" onChange={(e) => setLocation(e.target.value)} value={location} placeholder="location" />
             </Form.Field>
             <Form.Field control={Checkbox} label={{ children: 'Do You Have The Equipment?'}} onChange={(e) => setEquipment(!equipment)}/>
-            <Form.Field style={{width: "14vw"}}>
+            <Form.Field >
             <DatePicker 
             selected={datetime} 
             value={datetime} 

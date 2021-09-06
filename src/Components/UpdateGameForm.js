@@ -1,13 +1,10 @@
 import { useState } from "react";
-import { Button, Form, FormField, Input } from "semantic-ui-react";
-import DatePicker from 'react-datepicker';
+import { Button, Form } from "semantic-ui-react";
 import "react-datepicker/dist/react-datepicker.css";
 
 function UpdateGameForm({ game, updateData }) {
     
     const [newLocation, setNewLocation] = useState("");
-    const [newDatetime, setNewDatetime] = useState(new Date());
-
     function updateGame(e) {
       
         const newDetails = {
