@@ -3,6 +3,7 @@
 PickUps is a Web Application built with the intention for a users to create their own account and join in our host their own PickUp games around New York City.
 
 ## Getting started
+Before anything, make sure you have the backend server running properly. https://github.com/DayneDewar/PickUps-backend
 
 In the project directory, you can download all the packages and run the application with:
 
